@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WlepyNaFury.pl | Najlepsze naklejki motoryzacyjne</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <a href="#" class="logo">WlepyNa<span>Fury</span></a>
+        <div class="cart-icon" id="cart-btn">
+            Koszyk (<span id="cart-count">0</span>)
+        </div>
+    </nav>
+
+    <!-- Sekcja Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Naklejki z charakterem</h1>
+            <p>Najwyższa jakość folii. Twój wóz zasługuje na to, co najlepsze.</p>
+        </div>
+    </header>
+
+    <!-- Siatka Produktów -->
+    <section class="products">
+        <h2 class="section-title">Kolekcja</h2>
+        <!-- Tutaj JS wygeneruje naklejki -->
+        <div id="product-grid" class="grid"></div>
+    </section>
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Twój Koszyk</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        
+        <div class="cart-items" id="cart-items-container">
+            </div>
+        
+        <div class="cart-footer">
+            <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
+            <button class="checkout-btn" onclick="goToCheckout()">Kupuję</button>
+        </div>
+    </div>
+    <!-- Skrypty na dole strony dla lepszej wydajności -->
+    <script src="app.js"></script>
+</body>
+</html>
