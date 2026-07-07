@@ -56,7 +56,17 @@ function renderProducts() {
         productGrid.appendChild(card);
     });
 }
-
+// --- OBSŁUGA SUKCESU PŁATNOŚCI ---
+// Sprawdzamy, czy w adresie URL jest parametr ?success=true
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('success') === 'true') {
+    // 1. Czyścimy koszyk w pamięci przeglądarki
+    localStorage.removeItem('cart');
+    // 2. Wyświetlamy powiadomienie
+    alert("Dziękujemy za zamówienie! Płatność przebiegła pomyślnie. Potwierdzenie wysłaliśmy na Twój e-mail.");
+    // 3. Czyścimy pasek adresu, żeby po odświeżeniu alert nie wyskoczył ponownie
+    window.history.replaceState(null, '', window.location.pathname);
+}
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
