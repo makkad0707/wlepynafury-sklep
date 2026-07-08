@@ -79,8 +79,10 @@ let chosenPaczkomat = null; // Tu będziemy trzymać kod paczkomatu (np. POZ12A)
 // Funkcja otwierająca mapę
 window.openInPostMap = function() {
     window.easyPack.modalMap(function(point, modal) {
-        chosenPaczkomat = point.name; // point.name zwraca kod paczkomatu
-        document.getElementById('selected-paczkomat').textContent = `Wybrano punkt: ${chosenPaczkomat}`;
+        chosenPaczkomat = point.name;
+        const infoDiv = document.getElementById('selected-paczkomat');
+        infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
+        infoDiv.style.display = 'block'; // Pokazujemy div dopiero po wyborze
         modal.close();
     }, { width: 500, height: 400 });
 };

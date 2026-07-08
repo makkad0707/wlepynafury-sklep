@@ -22,17 +22,18 @@ export default async function handler(req, res) {
         }));
 
         // Dynamiczne dodawanie kosztów wysyłki (jako osobny produkt na rachunku)
+       // Dynamiczne dodawanie kosztów wysyłki i wstrzykiwanie numeru paczkomatu do rachunku
         let shippingCost = 0;
         let shippingName = '';
 
         if (productsTotal < 70) {
-            shippingCost = (shippingType === 'inpost') ? 1500 : 2000; // kwoty w groszach!
-            shippingName = (shippingType === 'inpost') ? 'Wysyłka - Paczkomat InPost' : 'Wysyłka - Kurier';
+            shippingCost = (shippingType === 'inpost') ? 1500 : 2000;
+            // Dodajemy identyfikator paczkomatu bezpośrednio do nazwy, by klient to widział
+            shippingName = (shippingType === 'inpost') ? `Wysyłka - Paczkomat InPost (${paczkomatId})` : 'Wysyłka - Kurier';
         } else {
             shippingCost = 0;
-            shippingName = 'Darmowa Wysyłka (powyżej 70 zł)';
+            shippingName = (shippingType === 'inpost') ? `Darmowa Wysyłka - Paczkomat (${paczkomatId})` : 'Darmowa Wysyłka - Kurier';
         }
-
         // Dodajemy koszty logistyki do koszyka Stripe'a
         if (shippingCost > 0) {
             lineItems.push({
