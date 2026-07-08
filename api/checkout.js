@@ -6,32 +6,72 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { items } = req.body;
+        const { items, shippingType, paczkomatId } = req.body;
 
+        // Obliczanie łącznej kwoty za produkty
+        const productsTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+        // Formatowanie naklejek dla Stripe
         const lineItems = items.map(item => ({
             price_data: {
                 currency: 'pln',
-                product_data: {
-                    name: item.name,
-                },
+                product_data: { name: item.name },
                 unit_amount: Math.round(item.price * 100), 
             },
             quantity: item.quantity,
         }));
 
+        // Dynamiczne dodawanie kosztów wysyłki (jako osobny produkt na rachunku)
+        let shippingCost = 0;
+        let shippingName = '';
+
+        if (productsTotal < 70) {
+            shippingCost = (shippingType === 'inpost') ? 1500 : 2000; // kwoty w groszach!
+            shippingName = (shippingType === 'inpost') ? 'Wysyłka - Paczkomat InPost' : 'Wysyłka - Kurier';
+        } else {
+            shippingCost = 0;
+            shippingName = 'Darmowa Wysyłka (powyżej 70 zł)';
+        }
+
+        // Dodajemy koszty logistyki do koszyka Stripe'a
+        if (shippingCost > 0) {
+            lineItems.push({
+                price_data: {
+                    currency: 'pln',
+                    product_data: { name: shippingName },
+                    unit_amount: shippingCost,
+                },
+                quantity: 1,
+            });
+        }
+
+        // Tworzymy sesję płatności
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card', 'blik', 'p24'],
             line_items: lineItems,
             mode: 'payment',
             success_url: `${req.headers.origin}/?success=true`,
             cancel_url: `${req.headers.origin}/?canceled=true`,
-            // Zbieranie adresu
+            
+            // Prosimy o adres dostawy - nawet dla Paczkomatu musimy mieć dane nadawcy
             shipping_address_collection: {
                 allowed_countries: ['PL'], 
             },
-            // Zbieranie numeru telefonu
             phone_number_collection: {
                 enabled: true,
+            },
+            
+            // KLUCZOWE: Zapisujemy kod Paczkomatu do wglądu w panelu Stripe
+            metadata: {
+                'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier pod drzwi',
+                'Paczkomat_ID': paczkomatId || 'Nie dotyczy (Kurier)'
+            },
+
+            // Tekst informacyjny na ekranie płatności
+            custom_text: {
+                shipping_address: {
+                    message: 'Informacja logistyczna: Twoje zamówienie zostanie zrealizowane i wysłane w ciągu maksymalnie 3 dni roboczych.',
+                },
             },
         });
 

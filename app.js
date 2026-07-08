@@ -67,6 +67,23 @@ if (urlParams.get('success') === 'true') {
     // 3. Czyścimy pasek adresu, żeby po odświeżeniu alert nie wyskoczył ponownie
     window.history.replaceState(null, '', window.location.pathname);
 }
+// Inicjalizacja oficjalnego widgetu InPost
+window.easyPackInit = function() {
+    window.easyPack.init({});
+};
+// Odpalamy po załadowaniu strony
+document.addEventListener("DOMContentLoaded", easyPackInit);
+
+let chosenPaczkomat = null; // Tu będziemy trzymać kod paczkomatu (np. POZ12A)
+
+// Funkcja otwierająca mapę
+window.openInPostMap = function() {
+    window.easyPack.modalMap(function(point, modal) {
+        chosenPaczkomat = point.name; // point.name zwraca kod paczkomatu
+        document.getElementById('selected-paczkomat').textContent = `Wybrano punkt: ${chosenPaczkomat}`;
+        modal.close();
+    }, { width: 500, height: 400 });
+};
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
@@ -95,9 +112,9 @@ function saveCart() {
 
 // 7. Aktualizacja licznika na górze strony (w nawigacji)
 function updateCartUI() {
-    // Zlicza łączną ilość sztuk wszystkich naklejek w koszyku
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCount.textContent = totalItems;
+    document.getElementById('cart-count').textContent = totalItems;
+    renderCartItems(); // Zawsze aktualizuj widok, bo cena wysyłki mogła się zmienić
 }
 
 // 8. Uruchomienie głównych funkcji przy starcie strony
@@ -127,31 +144,59 @@ window.toggleCart = function() {
 cartBtn.addEventListener('click', toggleCart);
 
 // Funkcja rysująca produkty wewnątrz wysuniętego panelu
+
+
 function renderCartItems() {
-    cartItemsContainer.innerHTML = ''; // Czyścimy przed nowym renderowaniem
-    let total = 0;
+    const cartItemsContainer = document.getElementById('cart-items-container');
+    const cartTotalPrice = document.getElementById('cart-total-price');
+    const openMapBtn = document.getElementById('open-map-btn');
+    const selectedPaczkomatDiv = document.getElementById('selected-paczkomat');
+    
+    cartItemsContainer.innerHTML = ''; 
+    let productsTotal = 0;
+
+    // Obliczanie wartości samych produktów
+    cart.forEach((item, index) => {
+        productsTotal += item.price * item.quantity;
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+            <div class="cart-item-info">
+                <h4>${item.name} (x${item.quantity})</h4>
+                <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} zł</div>
+            </div>
+            <button class="remove-item" onclick="removeFromCart(${index})">Usuń</button>
+        `;
+        cartItemsContainer.appendChild(itemEl);
+    });
 
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center; margin-top: 20px;">Twój koszyk świeci pustkami. Dorzuć jakąś wlepę!</p>';
-    } else {
-        cart.forEach((item, index) => {
-            total += item.price * item.quantity;
-            
-            const itemEl = document.createElement('div');
-            itemEl.className = 'cart-item';
-            itemEl.innerHTML = `
-                <div class="cart-item-info">
-                    <h4>${item.name} (x${item.quantity})</h4>
-                    <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} zł</div>
-                </div>
-                <button class="remove-item" onclick="removeFromCart(${index})">Usuń</button>
-            `;
-            cartItemsContainer.appendChild(itemEl);
-        });
+        cartItemsContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">Koszyk jest pusty.</p>';
+        cartTotalPrice.textContent = '0.00';
+        return;
     }
 
-    // Aktualizacja łącznej kwoty
-    cartTotalPrice.textContent = total.toFixed(2);
+    // Logika Wysyłki
+    const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+    let shippingCost = 0;
+
+    // Pokaż/ukryj przycisk mapy w zależności od wyboru
+    if (shippingMethod === 'inpost') {
+        openMapBtn.style.display = 'block';
+        selectedPaczkomatDiv.style.display = 'block';
+    } else {
+        openMapBtn.style.display = 'none';
+        selectedPaczkomatDiv.style.display = 'none';
+    }
+
+    // Kalkulacja darmowej dostawy powyżej 70 zł
+    if (productsTotal < 70) {
+        shippingCost = (shippingMethod === 'inpost') ? 15.00 : 20.00;
+    }
+
+    // Wyświetlamy sumę końcową
+    const finalTotal = productsTotal + shippingCost;
+    cartTotalPrice.textContent = finalTotal.toFixed(2);
 }
 
 // Funkcja usuwania konkretnej pozycji z koszyka
@@ -171,40 +216,40 @@ window.goToCheckout = async function() {
         return;
     }
 
-    // Zabezpieczenie: Zmieniamy tekst i blokujemy przycisk na czas ładowania
+    const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+    
+    // Zabezpieczenie, jeśli ktoś kliknął InPost, ale nie wybrał punktu na mapie
+    if (shippingMethod === 'inpost' && !chosenPaczkomat) {
+        alert("Proszę wybrać paczkomat na mapie!");
+        return;
+    }
+
     const checkoutBtn = document.querySelector('.checkout-btn');
     checkoutBtn.textContent = 'Trwa przekierowanie...';
     checkoutBtn.disabled = true;
 
     try {
-        // Wysyłamy zawartość koszyka do naszej nowej funkcji bezserwerowej
         const response = await fetch('/api/checkout', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ items: cart }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                items: cart,
+                shippingType: shippingMethod,       // Wysyłamy info: inpost czy kurier
+                paczkomatId: chosenPaczkomat || '' // Wysyłamy kod paczkomatu (jeśli jest)
+            }),
         });
 
         const data = await response.json();
-
-        // Jeśli backend zwróci link do Stripe Checkout, przekierowujemy klienta
         if (data.url) {
             window.location.href = data.url; 
         } else {
-            console.error("Błąd odpowiedzi serwera:", data);
-            alert("Serwer napotkał problem. Spróbuj ponownie.");
-            resetCheckoutBtn(checkoutBtn);
+            alert("Błąd serwera. Spróbuj ponownie.");
+            checkoutBtn.textContent = 'Kupuję z obowiązkiem zapłaty';
+            checkoutBtn.disabled = false;
         }
     } catch (error) {
-        console.error("Błąd połączenia:", error);
-        alert("Błąd połączenia. Sprawdź swój internet i spróbuj ponownie.");
-        resetCheckoutBtn(checkoutBtn);
+        alert("Błąd połączenia.");
+        checkoutBtn.textContent = 'Kupuję z obowiązkiem zapłaty';
+        checkoutBtn.disabled = false;
     }
-}
-
-// Funkcja pomocnicza przywracająca przycisk
-function resetCheckoutBtn(btn) {
-    btn.textContent = 'Kupuję';
-    btn.disabled = false;
 }
