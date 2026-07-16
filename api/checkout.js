@@ -46,6 +46,14 @@ export default async function handler(req, res) {
             });
         }
 
+        // Dynamiczny komunikat o wysyłce
+        let shippingMessage = '';
+        if (shippingType === 'inpost') {
+            shippingMessage = 'WYSYŁKA PACZKOMATEM: Podany niżej adres domowy to jedynie formalność rozliczeniowa. Twoja paczka zostanie wysłana do wybranego Paczkomatu. Podanie numeru telefonu jest niezbędne do odbioru paczki!';
+        } else {
+            shippingMessage = 'Wysyłka Kurierem: Zamówienie zostanie wysłane na podany poniżej adres w ciągu max 3 dni roboczych.';
+        }
+
         // Tworzymy sesję płatności
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card', 'blik', 'p24'],
@@ -53,25 +61,19 @@ export default async function handler(req, res) {
             mode: 'payment',
             success_url: `${req.headers.origin}/?success=true`,
             cancel_url: `${req.headers.origin}/?canceled=true`,
-            
-            // Prosimy o adres dostawy - nawet dla Paczkomatu musimy mieć dane nadawcy
             shipping_address_collection: {
                 allowed_countries: ['PL'], 
             },
             phone_number_collection: {
                 enabled: true,
             },
-            
-            // KLUCZOWE: Zapisujemy kod Paczkomatu do wglądu w panelu Stripe
             metadata: {
-                'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier pod drzwi',
-                'Paczkomat_ID': paczkomatId || 'Nie dotyczy (Kurier)'
+                'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier',
+                'Paczkomat_ID': paczkomatId || 'Nie dotyczy'
             },
-
-            // Tekst informacyjny na ekranie płatności
             custom_text: {
                 shipping_address: {
-                    message: 'Informacja logistyczna: Twoje zamówienie zostanie zrealizowane i wysłane w ciągu maksymalnie 3 dni roboczych.',
+                    message: shippingMessage, // Tu wstrzykujemy nasz dynamiczny tekst
                 },
             },
         });
