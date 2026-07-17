@@ -142,7 +142,7 @@ body::after {
 
 .product-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(190, 242, 100, 0.4);
+    border-color: rgba(74, 214, 196, 0.4);
     box-shadow: 0 15px 35px rgba(134, 134, 134, 0.5), 0 0 20px var(--accent-glow);
 }
 .product-card:hover::before { transform: scaleX(1); }

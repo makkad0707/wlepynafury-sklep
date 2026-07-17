@@ -6,7 +6,7 @@ const products = [
         price: 14.99,
         image: "img/144szer x 79wys_tatuskupil.png", // Zmienisz nazwę pliku, jak będziesz miał zdjęcia
         inStock: true,
-        bgColor: "#e4e4e7",
+        bgColor: "#fdfdff",
         description: "Chwała ojcu i jego pieniądzom",
         material: "Folia winylowa premium + Laminat UV",
         size: "14,4 cm x 7,9 cm"
@@ -17,7 +17,7 @@ const products = [
         price: 14.99,
         image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
         inStock: true,
-        bgColor: "#0a0a0a",
+        bgColor: "#fdfdff",
         description: "Niech wiedzą do kogo należy lewy (wersja biała)",
         material: "Folia winylowa premium + Laminat UV",
         size: "9,9 cm x 12,4 cm"
@@ -28,7 +28,7 @@ const products = [
         price: 14.99,
         image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
         inStock: true,
-        bgColor: "#e4e4e7",
+        bgColor: "#0a0a0a",
         description: "Niech wiedzą do kogo należy lewy (wersja czarna)",
         material: "Folia winylowa premium + Laminat UV",
         size: "9,9 cm x 12,4 cm"
@@ -39,7 +39,7 @@ const products = [
         price: 14.99,
         image: "img/BYŁAM PASSANGER PRINCESS 194 x 79.png",
         inStock: true,
-        bgColor: "#e4e4e7",
+        bgColor: "#fdfdff",
         description: "Urodzona pasażerką, zmuszona do bycia kierowcą",
         material: "Folia winylowa premium + Laminat UV",
         size: "19,4 cm x 7,9 cm"
@@ -50,7 +50,7 @@ const products = [
         price: 14.99,
         image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.png",
         inStock: true,
-        bgColor: "#e4e4e7",
+        bgColor: "#fdfdff",
         description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)",
         material: "Folia winylowa premium + Laminat UV",
         size: "19,4 cm x 7,9 cm"
@@ -61,7 +61,7 @@ const products = [
         price: 14.99,
         image: "img/za osmym 194 x 79.png",
         inStock: true,
-        bgColor: "#e4e4e7",
+        bgColor: "#fdfdff",
         description: "Kiedy boisz się nie tylko o swoje życie ale też innych",
         material: "Folia winylowa premium + Laminat UV",
         size: "19,4 cm x 7,9 cm"
