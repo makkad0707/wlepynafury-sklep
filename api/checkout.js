@@ -49,7 +49,7 @@ export default async function handler(req, res) {
         // Dynamiczny komunikat o wysyłce
         let shippingMessage = '';
         if (shippingType === 'inpost') {
-            shippingMessage = 'WYSYŁKA PACZKOMATEM: Podany niżej adres domowy to jedynie formalność rozliczeniowa. Twoja paczka zostanie wysłana do wybranego Paczkomatu. Podanie numeru telefonu jest niezbędne do odbioru paczki!';
+            shippingMessage = 'JEŚLI WYBRANA ZOSTAŁA WYSYŁKA PACZKOMATEM: Podany wyżej adres to jedynie formalność rozliczeniowa. Twoja paczka zostanie wysłana do wybranego Paczkomatu. Podanie numeru telefonu jest niezbędne do odbioru paczki! Jeśli zamawiasz kurierem do domu to podany wyżej adres jest adresem na który wysłana zostanie paczka';
         } else {
             shippingMessage = 'Wysyłka Kurierem: Zamówienie zostanie wysłane na podany poniżej adres w ciągu max 3 dni roboczych.';
         }
