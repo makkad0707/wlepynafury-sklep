@@ -4,42 +4,42 @@ const products = [
         id: 1,
         name: "Tatuś kupił",
         price: 14.99,
-        image: "img/144szer x 79wys_tatuskupil.pdf", // Zmienisz nazwę pliku, jak będziesz miał zdjęcia
+        image: "img/144szer x 79wys_tatuskupil.png", // Zmienisz nazwę pliku, jak będziesz miał zdjęcia
         inStock: true
     },
     {
         id: 2,
         name: "Z lewego tylko na stacje - Biała",
         price: 14.99,
-        image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.pdf",
+        image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
         inStock: true
     },
     {
         id: 3,
         name: "Z lewego tylko na stacje - Czarna",
         price: 14.99,
-        image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.pdf",
+        image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
         inStock: true
     },
     {
         id: 4,
         name: "Byłam Passanger Princess",
         price: 14.99,
-        image: "img/BYŁAM PASSANGER PRINCESS 194 x 79.pdf",
+        image: "img/BYŁAM PASSANGER PRINCESS 194 x 79.png",
         inStock: false
     },
     {
         id: 5,
         name: "WYŁUDZONE Z VATU",
         price: 14.99,
-        image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.pdf",
+        image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.png",
         inStock: true
     },
     {
         id: 6,
         name: "Zdałam za ósmym, proszę o dystans",
         price: 14.99,
-        image: "img/za osmym 194 x 79.pdf",
+        image: "img/za osmym 194 x 79.png",
         inStock: false
     },
 
