@@ -31,7 +31,9 @@ body {
     position: relative;
     z-index: 0;
 }
-
+body.no-scroll {
+    overflow: hidden;
+}
 /* 2. Asymetryczne, neonowe poświaty po bokach ekranu (wypełniają pustkę na PC) */
 body::before, body::after {
     content: '';
