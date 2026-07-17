@@ -5,42 +5,60 @@ const products = [
         name: "Tatuś kupił",
         price: 14.99,
         image: "img/144szer x 79wys_tatuskupil.png", // Zmienisz nazwę pliku, jak będziesz miał zdjęcia
-        inStock: true
+        inStock: true,
+        description: "Chwała ojcu i jego pieniądzom",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "14,4 cm x 7,9 cm"
     },
     {
         id: 2,
         name: "Z lewego tylko na stacje - Biała",
         price: 14.99,
         image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
-        inStock: true
+        inStock: true,
+        description: "Niech wiedzą do kogo należy lewy (wersja biała)",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "9,9 cm x 12,4 cm"
     },
     {
         id: 3,
         name: "Z lewego tylko na stacje - Czarna",
         price: 14.99,
         image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png",
-        inStock: true
+        inStock: true,
+        description: "Niech wiedzą do kogo należy lewy (wersja czarna)",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "9,9 cm x 12,4 cm"
     },
     {
         id: 4,
         name: "Byłam Passanger Princess",
         price: 14.99,
         image: "img/BYŁAM PASSANGER PRINCESS 194 x 79.png",
-        inStock: false
+        inStock: true,
+        description: "Urodzona pasażerką, zmuszona do bycia kierowcą",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "19,4 cm x 7,9 cm"
     },
     {
         id: 5,
         name: "WYŁUDZONE Z VATU",
         price: 14.99,
         image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.png",
-        inStock: true
+        inStock: true,
+        description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "19,4 cm x 7,9 cm"
     },
     {
         id: 6,
         name: "Zdałam za ósmym, proszę o dystans",
         price: 14.99,
         image: "img/za osmym 194 x 79.png",
-        inStock: false
+        inStock: true,
+        description: "Kiedy boisz się nie tylko o swoje życie ale też innych",
+        material: "Folia winylowa premium + Laminat UV",
+        size: "19,4 cm x 7,9 cm"
     },
 
 ];
@@ -55,25 +73,26 @@ const cartCount = document.getElementById('cart-count');
 
 // 4. Funkcja renderująca produkty na stronie
 function renderProducts() {
-    productGrid.innerHTML = ''; // Czyścimy grid przed wrzuceniem naklejek
+    const productGrid = document.getElementById('product-grid');
+    if (!productGrid) return; // Zabezpieczenie: jeśli nie ma grida (np. jesteśmy na produkt.html), przerwij funkcję.
+
+    productGrid.innerHTML = ''; 
 
     products.forEach(product => {
-        // Tworzymy nowy "klocek" dla każdego produktu
         const card = document.createElement('div');
-        // Jeśli inStock to false, dodajemy klasę .out-of-stock, którą napisaliśmy w CSS
         card.className = `product-card ${product.inStock ? '' : 'out-of-stock'}`;
 
-        // Wstrzykujemy strukturę HTML do karty
         card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-            <h3 class="product-title">${product.name}</h3>
+            <a href="produkt.html?id=${product.id}" style="text-decoration: none; color: inherit;">
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <h3 class="product-title">${product.name}</h3>
+            </a>
             <div class="product-price">${product.price.toFixed(2)} zł</div>
             <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
                 ${product.inStock ? 'Do koszyka' : 'Wyprzedane'}
             </button>
         `;
 
-        // Wrzucamy gotową kartę do głównego gridu na stronie
         productGrid.appendChild(card);
     });
 }
@@ -276,3 +295,43 @@ window.goToCheckout = async function() {
         checkoutBtn.disabled = false;
     }
 }
+// --- LOGIKA PODSTRONY PRODUKTU ---
+function renderSingleProduct() {
+    // Sprawdzamy, czy jesteśmy na podstronie produktu
+    const detailSection = document.getElementById('single-product-section');
+    if (!detailSection) return; 
+
+    // Pobieramy ID z adresu URL (np. ?id=2)
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = parseInt(urlParams.get('id'));
+    
+    // Szukamy produktu w naszej bazie
+    const product = products.find(p => p.id === productId);
+
+    if (!product) {
+        detailSection.innerHTML = '<h2 style="text-align:center; margin-top:50px;">Nie znaleziono produktu.</h2>';
+        return;
+    }
+
+    // Wstrzykujemy dane do HTML
+    document.getElementById('detail-image').src = product.image;
+    document.getElementById('detail-title').textContent = product.name;
+    document.getElementById('detail-price').textContent = product.price.toFixed(2) + ' zł';
+    document.getElementById('detail-desc').textContent = product.description || 'Brak opisu.';
+    document.getElementById('detail-material').textContent = product.material || 'Folia winylowa premium + Laminat UV';
+    document.getElementById('detail-size').textContent = product.size || 'Wymiar uniwersalny';
+
+    // Konfiguracja przycisku
+    const btn = document.getElementById('detail-add-btn');
+    if (product.inStock) {
+        btn.onclick = function() { addToCart(product.id); };
+    } else {
+        btn.textContent = 'WYPRZEDANE';
+        btn.style.backgroundColor = '#27272a';
+        btn.style.color = '#555';
+        btn.disabled = true;
+    }
+}
+
+// Odpalamy funkcję przy ładowaniu skryptu
+renderSingleProduct();

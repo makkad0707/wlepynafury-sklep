@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WlepyNaFury.pl | Detale Produktu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Skrypty InPost dla koszyka -->
+    <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
+    <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">WlepyNa<span>Fury</span></a>
+        <div class="cart-icon" id="cart-btn">Koszyk (<span id="cart-count">0</span>)</div>
+    </nav>
+
+    <!-- Sekcja Produktu (Tu zadziała nasz JS) -->
+    <section id="single-product-section" class="single-product-container">
+        <a href="index.html" class="back-link">← Wróć do sklepu</a>
+        
+        <div class="product-split">
+            <!-- Lewa kolumna: Zdjęcie -->
+            <div class="product-image-col">
+                <img id="detail-image" src="" alt="Zdjęcie produktu">
+            </div>
+            
+            <!-- Prawa kolumna: Detale -->
+            <div class="product-info-col">
+                <h1 id="detail-title">Ładowanie...</h1>
+                <div id="detail-price" class="detail-price-tag">0.00 zł</div>
+                
+                <div class="detail-description">
+                    <h3>Opis produktu</h3>
+                    <p id="detail-desc"></p>
+                </div>
+                
+                <ul class="detail-specs">
+                    <li><span>Materiał:</span> <strong id="detail-material"></strong></li>
+                    <li><span>Rozmiar:</span> <strong id="detail-size"></strong></li>
+                </ul>
+                
+                <button id="detail-add-btn" class="checkout-btn" style="margin-top: 20px;">Do koszyka</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Koszyk Wysuwany (Kopia z index.html) -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Twój Koszyk</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="shipping-section" style="margin-bottom: 20px; border-top: 1px solid #27272a; padding-top: 20px;">
+                <h4 style="margin-bottom: 15px;">Wybierz dostawę (Darmowa od 70 zł):</h4>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="shipping" value="inpost" onchange="updateCartUI()" checked> 
+                    Paczkomat InPost (15.00 zł)
+                </label>
+                <button id="open-map-btn" onclick="openInPostMap()" style="margin-bottom: 10px; padding: 10px; width: 100%; background: var(--surface-color); color: var(--text-main); border: 1px dashed #555; cursor: pointer; border-radius: 4px;">
+                    Wybierz Paczkomat na mapie
+                </button>
+                <div id="selected-paczkomat" style="color: #10b981; font-weight: 700; font-size: 14px; margin-bottom: 15px; display: none;"></div>
+                <label style="display: block; cursor: pointer;">
+                    <input type="radio" name="shipping" value="kurier" onchange="updateCartUI()"> 
+                    Kurier pod drzwi (20.00 zł)
+                </label>
+            </div>
+            <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
+            <p style="color: var(--text-muted); font-size: 12px; text-align: center; margin-bottom: 15px;">Wysyłka w ciągu max 3 dni roboczych.</p>
+            <button class="checkout-btn" onclick="goToCheckout()">Kupuję z obowiązkiem zapłaty</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

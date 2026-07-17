@@ -122,7 +122,7 @@ body::after {
 
 /* --- KARTA PRODUKTU (GLASSMORPHISM) --- */
 .product-card {
-    background: linear-gradient(145deg, rgba(30,30,35,0.8) 0%, rgba(15,15,18,0.8) 100%);
+    background: linear-gradient(145deg, rgba(36, 105, 79, 0.8) 0%, rgba(36,105,79,0.8) 100%);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
@@ -212,3 +212,92 @@ body::after {
     box-shadow: 0 0 20px var(--accent-glow);
 }
 .checkout-btn:hover { background-color: #fff; transform: translateY(-2px); box-shadow: 0 5px 25px rgba(255,255,255,0.2); }
+/* --- PODSTRONA PRODUKTU (SINGLE PRODUCT) --- */
+.single-product-container {
+    padding: 60px 5vw;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.back-link {
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 30px;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+.back-link:hover { color: var(--accent-color); }
+
+.product-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    background: var(--surface-color);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 40px;
+}
+
+.product-image-col img {
+    width: 100%;
+    height: auto;
+    background: rgba(0,0,0,0.6);
+    border-radius: 8px;
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.product-info-col { display: flex; flex-direction: column; justify-content: center; }
+
+#detail-title {
+    font-size: clamp(30px, 4vw, 45px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin-bottom: 15px;
+    letter-spacing: -1px;
+}
+
+.detail-price-tag {
+    font-size: 32px;
+    font-weight: 900;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+}
+
+.detail-description h3 {
+    font-size: 18px;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.detail-description p {
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.detail-specs {
+    list-style: none;
+    margin-bottom: 40px;
+    border-top: 1px dashed #333;
+    padding-top: 20px;
+}
+
+.detail-specs li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed #333;
+    color: var(--text-muted);
+}
+.detail-specs li strong { color: var(--text-main); }
+
+/* RWD dla podstrony produktu */
+@media (max-width: 800px) {
+    .product-split { grid-template-columns: 1fr; padding: 20px; gap: 30px; }
+}
