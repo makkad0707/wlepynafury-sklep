@@ -314,3 +314,20 @@ body::after {
         margin: 0 !important;
     }
 }
+/* --- NAPRAWA WIDOCZNOŚCI "X" I TŁA WIDŻETU INPOST --- */
+#easypack-widget-modal {
+    background-color: #fff !important; /* Gwarantuje, że pod mapą jest białe tło */
+    border-radius: 8px !important;
+}
+
+#easypack-widget-modal .close-button,
+#easypack-widget-modal .close,
+.easypack-widget-close {
+    color: #fff !important;
+    background-color: #ef4444 !important; /* Wyraźny czerwony kolor */
+    opacity: 1 !important;
+    text-shadow: none !important;
+    border-radius: 4px;
+    padding: 2px 8px !important;
+    z-index: 99999 !important;
+}

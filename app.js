@@ -125,12 +125,29 @@ let chosenPaczkomat = null; // Tu będziemy trzymać kod paczkomatu (np. POZ12A)
 // Funkcja otwierająca mapę
 window.openInPostMap = function() {
     window.easyPack.modalMap(function(point, modal) {
+        // 1. Zapisujemy kod i pokazujemy zielony napis (to już działało)
         chosenPaczkomat = point.name;
         const infoDiv = document.getElementById('selected-paczkomat');
         infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
         infoDiv.style.display = 'block'; 
-        modal.close();
-    }, { width: 500, height: 400 }); // Przywracamy wymagane przez InPost wymiary
+        
+        // 2. Oficjalna próba zamknięcia (jeśli API nagle zadziała)
+        if (modal && typeof modal.close === 'function') {
+            modal.close();
+        }
+        
+        // 3. Brutalne wymuszenie zamknięcia (nasz fix)
+        const inpostModal = document.getElementById('easypack-widget-modal');
+        if (inpostModal) {
+            inpostModal.style.display = 'none';
+        }
+        // Ukrywamy też szare tło InPostu, jeśli zostało
+        const inpostBackdrop = document.querySelector('.easypack-modal-backdrop');
+        if (inpostBackdrop) {
+            inpostBackdrop.style.display = 'none';
+        }
+        
+    }, { width: 500, height: 400 });
 };
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
