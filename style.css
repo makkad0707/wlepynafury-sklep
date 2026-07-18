@@ -303,3 +303,14 @@ body::after {
 @media (max-width: 800px) {
     .product-split { grid-template-columns: 1fr; padding: 20px; gap: 30px; }
 }
+/* --- NAPRAWA MAPY INPOST NA TELEFONACH --- */
+@media (max-width: 600px) {
+    #easypack-widget-modal {
+        width: 95vw !important;
+        height: 85vh !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        margin: 0 !important;
+    }
+}

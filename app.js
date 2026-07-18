@@ -90,7 +90,6 @@ function renderProducts() {
 
         card.innerHTML = `
             <a href="produkt.html?id=${product.id}" style="text-decoration: none; color: inherit;">
-                // Zmiana w funkcji renderProducts()
                 <img src="${product.image}" alt="${product.name}" class="product-image" style="background-color: ${product.bgColor || 'rgba(0,0,0,0.5)'};">
                 <h3 class="product-title">${product.name}</h3>
             </a>
@@ -131,7 +130,7 @@ window.openInPostMap = function() {
         infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
         infoDiv.style.display = 'block'; 
         modal.close();
-    }); // Usunięte sztywne wymiary, pełna responsywność
+    }, { width: 500, height: 400 }); // Przywracamy wymagane przez InPost wymiary
 };
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
