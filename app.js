@@ -1,33 +1,10 @@
-let chosenPaczkomat = null; 
-
-// 1. Pokazuje nasz własny kontener z mapą
-window.openInPostMap = function() {
-    document.getElementById('inpost-custom-modal').style.display = 'flex';
-};
-
-// 2. Chowa nasz kontener (podpięte pod wielki czerwony "X")
-window.closeInPostMap = function() {
-    document.getElementById('inpost-custom-modal').style.display = 'none';
-};
-
-// 3. Funkcja odpalana przez nowy widget po naciśnięciu "Wybierz"
-window.onPaczkomatSelected = function(point) {
-    chosenPaczkomat = point.name; // InPost v5 podaje od razu nazwę
-    
-    const infoDiv = document.getElementById('selected-paczkomat');
-    infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
-    infoDiv.style.display = 'block'; 
-    
-    // Automatycznie zamyka ekran!
-    closeInPostMap(); 
-};
 // 1. Nasza "Baza Danych" - tablica z produktami
 const products = [
     {
         id: 1,
         name: "Tatuś kupił",
         price: 14.99,
-        image: "img/144szer x 79wys_tatuskupil.png", // Zmienisz nazwę pliku, jak będziesz miał zdjęcia
+        image: "img/144szer x 79wys_tatuskupil.png",
         inStock: true,
         bgColor: "#fdfdff",
         description: "Chwała ojcu i jego pieniądzom",
@@ -88,22 +65,35 @@ const products = [
         description: "Kiedy boisz się nie tylko o swoje życie ale też innych",
         material: "Folia winylowa premium + Laminat UV",
         size: "19,4 cm x 7,9 cm"
-    },
-
+    }
 ];
 
 // 2. Inicjalizacja koszyka z localStorage
-// Sprawdza, czy w przeglądarce są już jakieś zapisane zakupy. Jeśli nie, tworzy pustą tablicę.
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// 3. Pobieranie elementów z HTML
-const productGrid = document.getElementById('product-grid');
-const cartCount = document.getElementById('cart-count');
+// --- MAPA INPOST V5 LOGIKA ---
+let chosenPaczkomat = null; 
 
-// 4. Funkcja renderująca produkty na stronie
+window.openInPostMap = function() {
+    document.getElementById('inpost-custom-modal').style.display = 'flex';
+};
+
+window.closeInPostMap = function() {
+    document.getElementById('inpost-custom-modal').style.display = 'none';
+};
+
+window.onPaczkomatSelected = function(point) {
+    chosenPaczkomat = point.name; 
+    const infoDiv = document.getElementById('selected-paczkomat');
+    infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
+    infoDiv.style.display = 'block'; 
+    closeInPostMap(); 
+};
+
+// 4. Funkcja renderująca produkty na stronie głównej
 function renderProducts() {
     const productGrid = document.getElementById('product-grid');
-    if (!productGrid) return; // Zabezpieczenie: jeśli nie ma grida (np. jesteśmy na produkt.html), przerwij funkcję.
+    if (!productGrid) return; 
 
     productGrid.innerHTML = ''; 
 
@@ -125,42 +115,27 @@ function renderProducts() {
         productGrid.appendChild(card);
     });
 }
+
 // --- OBSŁUGA SUKCESU PŁATNOŚCI ---
-// Sprawdzamy, czy w adresie URL jest parametr ?success=true
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('success') === 'true') {
-    // 1. Czyścimy koszyk w pamięci przeglądarki
     localStorage.removeItem('cart');
-    // 2. Wyświetlamy powiadomienie
     alert("Dziękujemy za zamówienie! Płatność przebiegła pomyślnie. Potwierdzenie wysłaliśmy na Twój e-mail.");
-    // 3. Czyścimy pasek adresu, żeby po odświeżeniu alert nie wyskoczył ponownie
     window.history.replaceState(null, '', window.location.pathname);
 }
-// Inicjalizacja oficjalnego widgetu InPost
-window.easyPackInit = function() {
-    window.easyPack.init({});
-};
-// Odpalamy po załadowaniu strony
-document.addEventListener("DOMContentLoaded", easyPackInit);
-
-let chosenPaczkomat = null; // Tu będziemy trzymać kod paczkomatu (np. POZ12A)
-
-// Funkcja otwierająca mapę
 
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);
     
-    // Zabezpieczenie na wypadek kliknięcia wyprzedanego produktu
     if (!product || !product.inStock) return; 
 
-    // Sprawdzamy, czy ten wzór naklejki jest już w koszyku
     const existingItem = cart.find(item => item.id === productId);
 
     if (existingItem) {
-        existingItem.quantity += 1; // Jeśli jest, zwiększamy ilość
+        existingItem.quantity += 1; 
     } else {
-        cart.push({ ...product, quantity: 1 }); // Jeśli nie, dodajemy jako nową pozycję
+        cart.push({ ...product, quantity: 1 }); 
     }
 
     saveCart();
@@ -168,51 +143,41 @@ window.addToCart = function(productId) {
     toggleCart();
 };
 
-// 6. Zapisywanie koszyka do pamięci przeglądarki (żeby odświeżenie strony go nie zresetowało)
+// 6. Zapisywanie koszyka 
 function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// 7. Aktualizacja licznika na górze strony (w nawigacji)
+// 7. Aktualizacja licznika 
 function updateCartUI() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    document.getElementById('cart-count').textContent = totalItems;
-    renderCartItems(); // Zawsze aktualizuj widok, bo cena wysyłki mogła się zmienić
+    const countElement = document.getElementById('cart-count');
+    if (countElement) {
+        countElement.textContent = totalItems;
+    }
+    renderCartItems(); 
 }
 
-// 8. Uruchomienie głównych funkcji przy starcie strony
-renderProducts();
-updateCartUI();
 // --- LOGIKA WYSUWANEGO KOSZYKA ---
-
-// Pobieranie nowych elementów HTML
-const cartOverlay = document.getElementById('cart-overlay');
-const cartSidebar = document.getElementById('cart-sidebar');
-const cartItemsContainer = document.getElementById('cart-items-container');
-const cartTotalPrice = document.getElementById('cart-total-price');
-const cartBtn = document.getElementById('cart-btn');
-
-// Funkcja wysuwania/chowwania koszyka
 window.toggleCart = function() {
     const cartOverlay = document.getElementById('cart-overlay');
     const cartSidebar = document.getElementById('cart-sidebar');
     
-    cartOverlay.classList.toggle('active');
-    cartSidebar.classList.toggle('active');
-    
-    // Dodajemy/usuwamy klasę blokującą scrollowanie
-    document.body.classList.toggle('no-scroll');
-    
-    if (cartSidebar.classList.contains('active')) {
-        renderCartItems();
+    if(cartOverlay && cartSidebar) {
+        cartOverlay.classList.toggle('active');
+        cartSidebar.classList.toggle('active');
+        document.body.classList.toggle('no-scroll');
+        
+        if (cartSidebar.classList.contains('active')) {
+            renderCartItems();
+        }
     }
 }
 
-// Podpięcie kliknięcia w ikonę koszyka w nawigacji
-cartBtn.addEventListener('click', toggleCart);
-
-// Funkcja rysująca produkty wewnątrz wysuniętego panelu
-
+const cartBtn = document.getElementById('cart-btn');
+if (cartBtn) {
+    cartBtn.addEventListener('click', toggleCart);
+}
 
 function renderCartItems() {
     const cartItemsContainer = document.getElementById('cart-items-container');
@@ -220,10 +185,11 @@ function renderCartItems() {
     const openMapBtn = document.getElementById('open-map-btn');
     const selectedPaczkomatDiv = document.getElementById('selected-paczkomat');
     
+    if (!cartItemsContainer) return;
+
     cartItemsContainer.innerHTML = ''; 
     let productsTotal = 0;
 
-    // Obliczanie wartości samych produktów
     cart.forEach((item, index) => {
         productsTotal += item.price * item.quantity;
         const itemEl = document.createElement('div');
@@ -244,40 +210,33 @@ function renderCartItems() {
         return;
     }
 
-    // Logika Wysyłki
-    const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
+    const shippingMethodInput = document.querySelector('input[name="shipping"]:checked');
+    let shippingMethod = shippingMethodInput ? shippingMethodInput.value : 'inpost';
     let shippingCost = 0;
 
-    // Pokaż/ukryj przycisk mapy w zależności od wyboru
     if (shippingMethod === 'inpost') {
-        openMapBtn.style.display = 'block';
-        selectedPaczkomatDiv.style.display = 'block';
+        if(openMapBtn) openMapBtn.style.display = 'block';
+        if(selectedPaczkomatDiv) selectedPaczkomatDiv.style.display = 'block';
     } else {
-        openMapBtn.style.display = 'none';
-        selectedPaczkomatDiv.style.display = 'none';
+        if(openMapBtn) openMapBtn.style.display = 'none';
+        if(selectedPaczkomatDiv) selectedPaczkomatDiv.style.display = 'none';
     }
 
-    // Kalkulacja darmowej dostawy powyżej 70 zł
     if (productsTotal < 70) {
         shippingCost = (shippingMethod === 'inpost') ? 15.00 : 20.00;
     }
 
-    // Wyświetlamy sumę końcową
     const finalTotal = productsTotal + shippingCost;
-    cartTotalPrice.textContent = finalTotal.toFixed(2);
+    if(cartTotalPrice) cartTotalPrice.textContent = finalTotal.toFixed(2);
 }
 
-// Funkcja usuwania konkretnej pozycji z koszyka
 window.removeFromCart = function(index) {
-    cart.splice(index, 1); // Usuwa 1 element z tablicy na podanym indeksie
-    saveCart();            // Zapisuje nowy stan do pamięci przeglądarki
-    updateCartUI();        // Odświeża licznik w nawigacji
-    renderCartItems();     // Od razu odświeża widok w otwartym koszyku
+    cart.splice(index, 1); 
+    saveCart();            
+    updateCartUI();        
 }
 
-// Funkcja, która odpali się po kliknięciu "Kupuję" (na razie tylko placeholder)
 // --- OBSŁUGA PŁATNOŚCI STRIPE ---
-
 window.goToCheckout = async function() {
     if (cart.length === 0) {
         alert("Koszyk jest pusty!");
@@ -286,7 +245,6 @@ window.goToCheckout = async function() {
 
     const shippingMethod = document.querySelector('input[name="shipping"]:checked').value;
     
-    // Zabezpieczenie, jeśli ktoś kliknął InPost, ale nie wybrał punktu na mapie
     if (shippingMethod === 'inpost' && !chosenPaczkomat) {
         alert("Proszę wybrać paczkomat na mapie!");
         return;
@@ -302,8 +260,8 @@ window.goToCheckout = async function() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 items: cart,
-                shippingType: shippingMethod,       // Wysyłamy info: inpost czy kurier
-                paczkomatId: chosenPaczkomat || '' // Wysyłamy kod paczkomatu (jeśli jest)
+                shippingType: shippingMethod,       
+                paczkomatId: chosenPaczkomat || '' 
             }),
         });
 
@@ -321,37 +279,33 @@ window.goToCheckout = async function() {
         checkoutBtn.disabled = false;
     }
 }
+
 // --- LOGIKA PODSTRONY PRODUKTU ---
 function renderSingleProduct() {
-    // Sprawdzamy, czy jesteśmy na podstronie produktu
     const detailSection = document.getElementById('single-product-section');
     if (!detailSection) return; 
 
-    // Pobieramy ID z adresu URL (np. ?id=2)
     const urlParams = new URLSearchParams(window.location.search);
     const productId = parseInt(urlParams.get('id'));
     
-    // Szukamy produktu w naszej bazie
     const product = products.find(p => p.id === productId);
-    // Zmiana w funkcji renderSingleProduct()
-    const imgEl = document.getElementById('detail-image');
-    imgEl.src = product.image;
-    imgEl.style.backgroundColor = product.bgColor || 'rgba(0,0,0,0.6)'; // Dynamiczny kolor tła
 
     if (!product) {
         detailSection.innerHTML = '<h2 style="text-align:center; margin-top:50px;">Nie znaleziono produktu.</h2>';
         return;
     }
 
-    // Wstrzykujemy dane do HTML
-    document.getElementById('detail-image').src = product.image;
+    // Ten kod musi być wstrzyknięty PO upewnieniu się, że produkt został znaleziony
+    const imgEl = document.getElementById('detail-image');
+    imgEl.src = product.image;
+    imgEl.style.backgroundColor = product.bgColor || 'rgba(0,0,0,0.6)'; 
+
     document.getElementById('detail-title').textContent = product.name;
     document.getElementById('detail-price').textContent = product.price.toFixed(2) + ' zł';
     document.getElementById('detail-desc').textContent = product.description || 'Brak opisu.';
     document.getElementById('detail-material').textContent = product.material || 'Folia winylowa premium + Laminat UV';
     document.getElementById('detail-size').textContent = product.size || 'Wymiar uniwersalny';
 
-    // Konfiguracja przycisku
     const btn = document.getElementById('detail-add-btn');
     if (product.inStock) {
         btn.onclick = function() { addToCart(product.id); };
@@ -363,5 +317,7 @@ function renderSingleProduct() {
     }
 }
 
-// Odpalamy funkcję przy ładowaniu skryptu
+// Odpalenie głównych funkcji na starcie
+renderProducts();
+updateCartUI();
 renderSingleProduct();
