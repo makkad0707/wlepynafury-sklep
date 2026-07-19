@@ -1,3 +1,26 @@
+let chosenPaczkomat = null; 
+
+// 1. Pokazuje nasz własny kontener z mapą
+window.openInPostMap = function() {
+    document.getElementById('inpost-custom-modal').style.display = 'flex';
+};
+
+// 2. Chowa nasz kontener (podpięte pod wielki czerwony "X")
+window.closeInPostMap = function() {
+    document.getElementById('inpost-custom-modal').style.display = 'none';
+};
+
+// 3. Funkcja odpalana przez nowy widget po naciśnięciu "Wybierz"
+window.onPaczkomatSelected = function(point) {
+    chosenPaczkomat = point.name; // InPost v5 podaje od razu nazwę
+    
+    const infoDiv = document.getElementById('selected-paczkomat');
+    infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
+    infoDiv.style.display = 'block'; 
+    
+    // Automatycznie zamyka ekran!
+    closeInPostMap(); 
+};
 // 1. Nasza "Baza Danych" - tablica z produktami
 const products = [
     {
@@ -123,32 +146,7 @@ document.addEventListener("DOMContentLoaded", easyPackInit);
 let chosenPaczkomat = null; // Tu będziemy trzymać kod paczkomatu (np. POZ12A)
 
 // Funkcja otwierająca mapę
-window.openInPostMap = function() {
-    window.easyPack.modalMap(function(point, modal) {
-        // 1. Zapisujemy kod i pokazujemy zielony napis (to już działało)
-        chosenPaczkomat = point.name;
-        const infoDiv = document.getElementById('selected-paczkomat');
-        infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
-        infoDiv.style.display = 'block'; 
-        
-        // 2. Oficjalna próba zamknięcia (jeśli API nagle zadziała)
-        if (modal && typeof modal.close === 'function') {
-            modal.close();
-        }
-        
-        // 3. Brutalne wymuszenie zamknięcia (nasz fix)
-        const inpostModal = document.getElementById('easypack-widget-modal');
-        if (inpostModal) {
-            inpostModal.style.display = 'none';
-        }
-        // Ukrywamy też szare tło InPostu, jeśli zostało
-        const inpostBackdrop = document.querySelector('.easypack-modal-backdrop');
-        if (inpostBackdrop) {
-            inpostBackdrop.style.display = 'none';
-        }
-        
-    }, { width: 500, height: 400 });
-};
+
 // 5. Logika dodawania do koszyka
 window.addToCart = function(productId) {
     const product = products.find(p => p.id === productId);

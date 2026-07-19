@@ -12,8 +12,9 @@
     
     <link rel="stylesheet" href="style.css">
     <!-- Skrypty Mapy InPost -->
-    <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
-    <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
+    <!-- Nowy, najnowszy skrypt Mapy InPost v5 -->
+    <link rel="stylesheet" href="https://geowidget.inpost.pl/inpost-geowidget.css"/>
+    <script src="https://geowidget.inpost.pl/inpost-geowidget.js" defer></script>
 </head>
 <body>
 
@@ -29,7 +30,7 @@
     <header class="hero">
         <div class="hero-content">
             <h1>Naklejki z charakterem</h1>
-            <p>Najwyższa jakość folii. Twój wóz zasługuje na to, co najlepsze.</p>
+            <p>Jak przykleisz (nieważne na co) to ci będą robić zdjęcia.</p>
         </div>
     </header>
 
@@ -83,7 +84,21 @@
             <button class="checkout-btn" onclick="goToCheckout()">Kupuję z obowiązkiem zapłaty</button>
         </div>
     </div>
-    <!-- Skrypty na dole strony dla lepszej wydajności -->
+    <!-- Nasz własny modal z mapą InPost -->
+    <div id="inpost-custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 999999; flex-direction: column;">
+        
+        <!-- Pasek nawigacyjny, który MY kontrolujemy -->
+        <div style="background: #1a1a1d; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent-color);">
+            <h3 style="color: #fff; margin: 0; font-size: 18px;">Wybierz Paczkomat</h3>
+            <!-- Ten przycisk zamknie mapę bez pytania InPostu o zgodę -->
+            <button onclick="closeInPostMap()" style="background: #ef4444; color: #fff; border: none; padding: 10px 20px; font-size: 16px; font-weight: 900; border-radius: 6px; cursor: pointer;">ZAMKNIJ X</button>
+        </div>
+        
+        <!-- Samo serce najnowszej mapy -->
+        <div style="flex-grow: 1; width: 100%; background: #fff; position: relative;">
+            <inpost-geowidget onpoint="onPaczkomatSelected" language="pl" config="widget"></inpost-geowidget>
+        </div>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
