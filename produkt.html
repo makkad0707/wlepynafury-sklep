@@ -94,6 +94,19 @@
             <inpost-geowidget onpoint="onPaczkomatSelected" language="pl" config="widget"></inpost-geowidget>
         </div>
     </div>
+   <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px;">
+        <a href="regulamin.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Regulamin Sklepu</a>
+        <a href="polityka-prywatnosci.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Polityka Prywatności</a>
+    </footer>
+    <!-- Baner Cookies -->
+    <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1d; border-top: 1px solid var(--accent-color); padding: 15px 20px; z-index: 9999; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
+        <p style="color: var(--text-muted); font-size: 13px; margin: 0; flex: 1; min-width: 250px;">
+            Korzystając ze sklepu zgadzasz się na zapisywanie lokalnych danych (Local Storage) niezbędnych do poprawnego działania koszyka. Więcej w <a href="polityka-prywatnosci.html" style="color: var(--text-main);">Polityce Prywatności</a>.
+        </p>
+        <button onclick="acceptCookies()" style="background: var(--accent-color); color: #000; border: none; padding: 10px 20px; font-weight: 800; font-size: 14px; border-radius: 4px; cursor: pointer;">
+            Zrozumiałem
+        </button>
+    </div>
     <script src="app.js"></script>
 </body>
 </html>
