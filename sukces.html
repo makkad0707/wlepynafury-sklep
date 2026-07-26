@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WlepyNaFury.pl | Zamówienie opłacone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Nawigacja -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">WlepyNa<span>Fury</span></a>
+    </nav>
+
+    <!-- Sekcja Sukcesu -->
+    <section class="hero" style="min-height: 75vh; display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <div style="background: var(--surface-color); padding: 50px 30px; border-radius: 12px; border: 1px solid var(--accent-color); max-width: 600px; text-align: center; box-shadow: 0 0 40px rgba(190, 242, 100, 0.15); backdrop-filter: blur(10px);">
+            
+            <h1 style="color: var(--accent-color); margin-bottom: 20px; font-size: clamp(28px, 5vw, 36px); font-weight: 900; text-transform: uppercase;">
+                Płatność zakończona sukcesem!
+            </h1>
+            
+            <p style="color: var(--text-muted); font-size: 18px; margin-bottom: 40px; line-height: 1.6;">
+                Dziękujemy za zakupy w naszym sklepie. Potwierdzenie zamówienia zostało właśnie wysłane na Twój adres e-mail. Bierzemy się za pakowanie!
+            </p>
+            
+            <a href="index.html" class="checkout-btn" style="text-decoration: none; display: inline-block; width: auto; padding: 16px 40px;">
+                Wróć do sklepu
+            </a>
+        </div>
+    </section>
+
+    <!-- Skrypt czyszczący koszyk -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Usuwamy zawartość koszyka po udanej płatności
+            localStorage.removeItem('cart');
+        });
+    </script>
+</body>
+</html>

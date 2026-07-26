@@ -53,7 +53,7 @@ export default async function handler(req, res) {
             line_items: lineItems,
             mode: 'payment',
             // Sztywne adresy powrotne po transakcji
-            success_url: 'https://wlepynafury.pl/?success=true',
+            success_url: 'https://wlepynafury.pl/sukces.html',
             cancel_url: 'https://wlepynafury.pl/?canceled=true',
             shipping_address_collection: {
                 allowed_countries: ['PL'], 

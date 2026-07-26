@@ -1,10 +1,10 @@
 // --- 1. BAZA PRODUKTÓW ---
 const products = [
-    { id: 1, name: "Tatuś kupił", price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: true, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" },
-    { id: 2, name: "Z lewego tylko na stacje - Biała", price: 14.99, image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png", inStock: true, bgColor: "#fdfdff", description: "Niech wiedzą do kogo należy lewy (wersja biała)", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
-    { id: 3, name: "Z lewego tylko na stacje - Czarna", price: 14.99, image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png", inStock: true, bgColor: "#0a0a0a", description: "Niech wiedzą do kogo należy lewy (wersja czarna)", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
+    { id: 1, name: "Tatuś kupił", price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: false, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" },
+    { id: 2, name: "Z lewego tylko na stacje - Biała", price: 14.99, image: "img/bialy_99wys_x_124_szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png", inStock: false, bgColor: "#fdfdff", description: "Niech wiedzą do kogo należy lewy (wersja biała)", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
+    { id: 3, name: "Z lewego tylko na stacje - Czarna", price: 14.99, image: "img/czarny_99wys x 124 szer_Z LEWEGO PASA ZJEŻDZAM TYLKO NA STACJE.png", inStock: false, bgColor: "#0a0a0a", description: "Niech wiedzą do kogo należy lewy (wersja czarna)", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
     { id: 4, name: "Byłam Passanger Princess", price: 14.99, image: "img/BYŁAM PASSANGER PRINCESS 194 x 79.png", inStock: true, bgColor: "#fdfdff", description: "Urodzona pasażerką, zmuszona do bycia kierowcą", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 5, name: "WYŁUDZONE Z VATU", price: 14.99, image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
+    { id: 5, name: "WYŁUDZONE Z VATU", price: 14.99, image: "img/szer194_wys_79_WYŁUDZONE Z VAT-U.png", inStock: false, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
     { id: 6, name: "Zdałam za ósmym, proszę o dystans", price: 14.99, image: "img/za osmym 194 x 79.png", inStock: true, bgColor: "#fdfdff", description: "Kiedy boisz się nie tylko o swoje życie ale też innych", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" }
 ];
 
