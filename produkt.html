@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     
-    <!-- Skrypty InPost dla koszyka -->
-    <!-- Nowy, najnowszy skrypt Mapy InPost v5 -->
-    <link rel="stylesheet" href="https://geowidget.inpost.pl/inpost-geowidget.css"/>
-    <script src="https://geowidget.inpost.pl/inpost-geowidget.js" defer></script>
+    <!-- Darmowy skrypt Mapy InPost v4 -->
+    <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
+    <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
 </head>
 <body>
 
@@ -20,17 +19,15 @@
         <div class="cart-icon" id="cart-btn">Koszyk (<span id="cart-count">0</span>)</div>
     </nav>
 
-    <!-- Sekcja Produktu (Tu zadziała nasz JS) -->
+    <!-- Sekcja Produktu -->
     <section id="single-product-section" class="single-product-container">
         <a href="index.html" class="back-link">← Wróć do sklepu</a>
         
         <div class="product-split">
-            <!-- Lewa kolumna: Zdjęcie -->
             <div class="product-image-col">
                 <img id="detail-image" src="" alt="Zdjęcie produktu">
             </div>
             
-            <!-- Prawa kolumna: Detale -->
             <div class="product-info-col">
                 <h1 id="detail-title">Ładowanie...</h1>
                 <div id="detail-price" class="detail-price-tag">0.00 zł</div>
@@ -50,8 +47,10 @@
         </div>
     </section>
 
-    <!-- Koszyk Wysuwany (Kopia z index.html) -->
+    <!-- Tło zaciemniające (Overlay) -->
     <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
+    <!-- Koszyk Wysuwany -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h2>Twój Koszyk</h2>
@@ -76,28 +75,31 @@
             </div>
             <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
             <p style="color: var(--text-muted); font-size: 12px; text-align: center; margin-bottom: 15px;">Wysyłka w ciągu max 3 dni roboczych.</p>
+            
+            <div style="text-align: center; margin-bottom: 15px;">
+                <a href="regulamin.html" style="color: var(--text-muted); font-size: 12px; text-decoration: underline; transition: color 0.3s;">
+                    Klikając przycisk poniżej, akceptujesz Regulamin sklepu
+                </a>
+            </div>
+            
             <button class="checkout-btn" onclick="goToCheckout()">Kupuję z obowiązkiem zapłaty</button>
         </div>
     </div>
-<!-- Nasz własny modal z mapą InPost -->
+
+    <!-- Nasz własny modal z wstrzykiwaną mapą -->
     <div id="inpost-custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 999999; flex-direction: column;">
-        
-        <!-- Pasek nawigacyjny, który MY kontrolujemy -->
         <div style="background: #1a1a1d; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent-color);">
             <h3 style="color: #fff; margin: 0; font-size: 18px;">Wybierz Paczkomat</h3>
-            <!-- Ten przycisk zamknie mapę bez pytania InPostu o zgodę -->
             <button onclick="closeInPostMap()" style="background: #ef4444; color: #fff; border: none; padding: 10px 20px; font-size: 16px; font-weight: 900; border-radius: 6px; cursor: pointer;">ZAMKNIJ X</button>
         </div>
-        
-        <!-- Samo serce najnowszej mapy -->
-        <div style="flex-grow: 1; width: 100%; background: #fff; position: relative;">
-            <inpost-geowidget onpoint="onPaczkomatSelected" language="pl" config="widget"></inpost-geowidget>
-        </div>
+        <div id="map-container" style="flex-grow: 1; width: 100%; background: #fff; position: relative;"></div>
     </div>
-   <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px;">
+
+    <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px;">
         <a href="regulamin.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Regulamin Sklepu</a>
         <a href="polityka-prywatnosci.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Polityka Prywatności</a>
     </footer>
+
     <!-- Baner Cookies -->
     <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1d; border-top: 1px solid var(--accent-color); padding: 15px 20px; z-index: 9999; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
         <p style="color: var(--text-muted); font-size: 13px; margin: 0; flex: 1; min-width: 250px;">
@@ -107,6 +109,7 @@
             Zrozumiałem
         </button>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>

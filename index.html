@@ -11,9 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
-    <!-- Skrypty Mapy InPost -->
-    <!-- Nowy, najnowszy skrypt Mapy InPost v5 -->
-   <!-- Darmowy skrypt Mapy InPost v4 -->
+    
+    <!-- Darmowy skrypt Mapy InPost v4 -->
     <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
     <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
 </head>
@@ -38,10 +37,23 @@
     <!-- Siatka Produktów -->
     <section class="products">
         <h2 class="section-title">Kolekcja</h2>
-        <!-- Tutaj JS wygeneruje naklejki -->
         <div id="product-grid" class="grid"></div>
     </section>
+
+    <!-- Sekcja Kontakt -->
+    <section class="contact-section" style="padding: 60px 5vw; max-width: 1400px; margin: 0 auto; text-align: center; border-top: 1px dashed var(--border-color); margin-top: 20px;">
+        <h2 class="section-title" style="justify-content: center;">Kontakt</h2>
+        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">
+            Masz pytania co do zamówienia, zwrotu albo naklejek? Uderzaj śmiało na maila. Odpisuję w ciągu maksymalnie 5 dni roboczych.
+        </p>
+        <a href="mailto:kadziolkanowakmaksymilian@gmail.com" class="checkout-btn" style="display: inline-block; width: auto; padding: 15px 40px; text-decoration: none;">
+            Wyślij wiadomość
+        </a>
+    </section>
+
+    <!-- Tło zaciemniające (Overlay) -->
     <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
+
     <!-- Wysuwany Koszyk -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
@@ -49,11 +61,8 @@
             <button class="close-cart" onclick="toggleCart()">&times;</button>
         </div>
         
-        <div class="cart-items" id="cart-items-container">
-            <!-- Tutaj JS dynamicznie wygeneruje listę zakupów -->
-        </div>
+        <div class="cart-items" id="cart-items-container"></div>
         
-        <!-- Zaktualizowany Footer z mapą wewnątrz sidebar'a -->
         <div class="cart-footer">
             <div class="shipping-section" style="margin-bottom: 20px; border-top: 1px solid #27272a; padding-top: 20px;">
                 <h4 style="margin-bottom: 15px;">Wybierz dostawę (Darmowa od 70 zł):</h4>
@@ -67,7 +76,6 @@
                     Wybierz Paczkomat na mapie
                 </button>
                 
-                <!-- Poprawiony kolor komunikatu na zieleń (sukces) -->
                 <div id="selected-paczkomat" style="color: #10b981; font-weight: 700; font-size: 14px; margin-bottom: 15px; display: none;"></div>
 
                 <label style="display: block; cursor: pointer;">
@@ -78,38 +86,32 @@
 
             <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
             <p style="color: var(--text-muted); font-size: 12px; text-align: center; margin-bottom: 15px;">Wysyłka w ciągu max 3 dni roboczych.</p>
+            
+            <div style="text-align: center; margin-bottom: 15px;">
+                <a href="regulamin.html" style="color: var(--text-muted); font-size: 12px; text-decoration: underline; transition: color 0.3s;">
+                    Klikając przycisk poniżej, akceptujesz Regulamin sklepu
+                </a>
+            </div>
+            
             <button class="checkout-btn" onclick="goToCheckout()">Kupuję z obowiązkiem zapłaty</button>
         </div>
     </div>
-    <!-- Nasz własny modal z mapą InPost -->
+
+    <!-- Nasz własny modal z wstrzykiwaną mapą -->
     <div id="inpost-custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 999999; flex-direction: column;">
-        
-        <!-- Pasek nawigacyjny, który MY kontrolujemy -->
-        <div style="background: #1a1a1d; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent-color);">
-            <h3 style="color: #fff; margin: 0; font-size: 18px;">Wybierz Paczkomat</h3>
-            <!-- Ten przycisk zamknie mapę bez pytania InPostu o zgodę -->
-            <button onclick="closeInPostMap()" style="background: #ef4444; color: #fff; border: none; padding: 10px 20px; font-size: 16px; font-weight: 900; border-radius: 6px; cursor: pointer;">ZAMKNIJ X</button>
-        </div>
-        
-        <!-- Samo serce najnowszej mapy -->
-        <div style="flex-grow: 1; width: 100%; background: #fff; position: relative;">
-            <!-- Nasz własny modal z wstrzykiwaną mapą -->
-    <div id="inpost-custom-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.95); z-index: 999999; flex-direction: column;">
-        
         <div style="background: #1a1a1d; width: 100%; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent-color);">
             <h3 style="color: #fff; margin: 0; font-size: 18px;">Wybierz Paczkomat</h3>
             <button onclick="closeInPostMap()" style="background: #ef4444; color: #fff; border: none; padding: 10px 20px; font-size: 16px; font-weight: 900; border-radius: 6px; cursor: pointer;">ZAMKNIJ X</button>
         </div>
-        
-        <!-- Pusty kontener, w którym JS wyrenderuje samą mapę InPostu -->
         <div id="map-container" style="flex-grow: 1; width: 100%; background: #fff; position: relative;"></div>
     </div>
-        </div>
-    </div>
-   <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px;">
+
+    <footer style="text-align: center; padding: 20px; border-top: 1px solid var(--border-color); margin-top: 40px;">
         <a href="regulamin.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Regulamin Sklepu</a>
         <a href="polityka-prywatnosci.html" style="color: var(--text-muted); text-decoration: none; font-size: 13px; margin: 0 10px;">Polityka Prywatności</a>
-        <!-- Baner Cookies -->
+    </footer>
+
+    <!-- Baner Cookies -->
     <div id="cookie-banner" style="display: none; position: fixed; bottom: 0; left: 0; width: 100%; background: #1a1a1d; border-top: 1px solid var(--accent-color); padding: 15px 20px; z-index: 9999; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; box-shadow: 0 -5px 20px rgba(0,0,0,0.5);">
         <p style="color: var(--text-muted); font-size: 13px; margin: 0; flex: 1; min-width: 250px;">
             Korzystając ze sklepu zgadzasz się na zapisywanie lokalnych danych (Local Storage) niezbędnych do poprawnego działania koszyka. Więcej w <a href="polityka-prywatnosci.html" style="color: var(--text-main);">Polityce Prywatności</a>.
@@ -118,6 +120,7 @@
             Zrozumiałem
         </button>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>

@@ -11,7 +11,7 @@ const products = [
 // --- 2. KOSZYK ---
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-// --- 3. MAPA INPOST V4 BEZ TOKENU ---
+// --- 3. MAPA INPOST V4 BEZ TOKENU (PANCERNA WERSJA) ---
 let chosenPaczkomat = null; 
 
 window.easyPackInit = function() {
@@ -22,15 +22,23 @@ document.addEventListener("DOMContentLoaded", easyPackInit);
 window.openInPostMap = function() {
     document.getElementById('inpost-custom-modal').style.display = 'flex';
     
-    if (!document.getElementById('map-container').innerHTML) {
-        window.easyPack.mapWidget('map-container', function(point) {
-            chosenPaczkomat = point.name; 
-            const infoDiv = document.getElementById('selected-paczkomat');
-            infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
-            infoDiv.style.display = 'block'; 
-            closeInPostMap(); 
-        });
-    }
+    // Używamy setTimeout, aby dać przeglądarce 150ms na fizyczne "namalowanie" czarnego tła. 
+    // Dzięki temu mapa Leaflet widzi swoje wymiary i nie generuje białego ekranu.
+    setTimeout(() => {
+        const mapContainer = document.getElementById('map-container');
+        if (mapContainer && !mapContainer.innerHTML) {
+            window.easyPack.mapWidget('map-container', function(point) {
+                chosenPaczkomat = point.name; 
+                const infoDiv = document.getElementById('selected-paczkomat');
+                infoDiv.textContent = `✓ Wybrano punkt: ${chosenPaczkomat}`;
+                infoDiv.style.display = 'block'; 
+                closeInPostMap(); 
+            });
+        } else {
+            // Jeśli mapa już była załadowana, wymuszamy odświeżenie (fix na szare kafelki po zamknięciu i otwarciu)
+            window.dispatchEvent(new Event('resize'));
+        }
+    }, 150);
 };
 
 window.closeInPostMap = function() {
@@ -218,12 +226,12 @@ window.goToCheckout = async function() {
         if (data.url) window.location.href = data.url; 
         else {
             alert("Błąd serwera. Spróbuj ponownie.");
-            checkoutBtn.textContent = 'Kupuję';
+            checkoutBtn.textContent = 'Kupuję z obowiązkiem zapłaty';
             checkoutBtn.disabled = false;
         }
     } catch (error) {
         alert("Błąd połączenia.");
-        checkoutBtn.textContent = 'Kupuję';
+        checkoutBtn.textContent = 'Kupuję z obowiązkiem zapłaty';
         checkoutBtn.disabled = false;
     }
 }
@@ -235,23 +243,21 @@ if (urlParamsCheck.get('success') === 'true') {
     alert("Dziękujemy za zamówienie! Płatność przebiegła pomyślnie. Potwierdzenie wysłaliśmy na Twój e-mail.");
     window.history.replaceState(null, '', window.location.pathname);
 }
+
 // --- 9. LOGIKA BANERA COOKIES ---
 document.addEventListener("DOMContentLoaded", function() {
-    // Sprawdzamy, czy użytkownik już zaakceptował ciasteczka
     if (!localStorage.getItem('cookiesAccepted')) {
-        // Jeśli nie, pokazujemy baner
         const banner = document.getElementById('cookie-banner');
         if (banner) banner.style.display = 'flex';
     }
 });
 
 window.acceptCookies = function() {
-    // Zapisujemy zgodę w LocalStorage
     localStorage.setItem('cookiesAccepted', 'true');
-    // Chowamy baner
     const banner = document.getElementById('cookie-banner');
     if (banner) banner.style.display = 'none';
 };
+
 // Uruchomienie na starcie
 renderProducts();
 updateCartUI();
