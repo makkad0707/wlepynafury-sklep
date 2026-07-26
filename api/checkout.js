@@ -59,8 +59,8 @@ export default async function handler(req, res) {
             payment_method_types: ['card', 'blik', 'p24'],
             line_items: lineItems,
             mode: 'payment',
-            success_url: `${req.headers.origin}/?success=true`,
-            cancel_url: `${req.headers.origin}/?canceled=true`,
+            success_url: 'https://wlepynafury.pl/?success=true',
+            cancel_url: 'https://wlepynafury.pl/?canceled=true',
             shipping_address_collection: {
                 allowed_countries: ['PL'], 
             },
