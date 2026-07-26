@@ -8,10 +8,8 @@ export default async function handler(req, res) {
     try {
         const { items, shippingType, paczkomatId } = req.body;
 
-        // Obliczanie łącznej kwoty za produkty
         const productsTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-        // Formatowanie naklejek dla Stripe
         const lineItems = items.map(item => ({
             price_data: {
                 currency: 'pln',
@@ -21,20 +19,17 @@ export default async function handler(req, res) {
             quantity: item.quantity,
         }));
 
-        // Dynamiczne dodawanie kosztów wysyłki (jako osobny produkt na rachunku)
-       // Dynamiczne dodawanie kosztów wysyłki i wstrzykiwanie numeru paczkomatu do rachunku
         let shippingCost = 0;
         let shippingName = '';
 
         if (productsTotal < 70) {
             shippingCost = (shippingType === 'inpost') ? 1500 : 2000;
-            // Dodajemy identyfikator paczkomatu bezpośrednio do nazwy, by klient to widział
             shippingName = (shippingType === 'inpost') ? `Wysyłka - Paczkomat InPost (${paczkomatId})` : 'Wysyłka - Kurier';
         } else {
             shippingCost = 0;
             shippingName = (shippingType === 'inpost') ? `Darmowa Wysyłka - Paczkomat (${paczkomatId})` : 'Darmowa Wysyłka - Kurier';
         }
-        // Dodajemy koszty logistyki do koszyka Stripe'a
+        
         if (shippingCost > 0) {
             lineItems.push({
                 price_data: {
@@ -46,7 +41,6 @@ export default async function handler(req, res) {
             });
         }
 
-        // Dynamiczny komunikat o wysyłce
         let shippingMessage = '';
         if (shippingType === 'inpost') {
             shippingMessage = 'JEŚLI WYBRANA ZOSTAŁA WYSYŁKA PACZKOMATEM: Podany wyżej adres to jedynie formalność rozliczeniowa. Twoja paczka zostanie wysłana do wybranego Paczkomatu. Podanie numeru telefonu jest niezbędne do odbioru paczki! Jeśli zamawiasz kurierem do domu to podany wyżej adres jest adresem na który wysłana zostanie paczka';
@@ -54,11 +48,11 @@ export default async function handler(req, res) {
             shippingMessage = 'Wysyłka Kurierem: Zamówienie zostanie wysłane na podany poniżej adres w ciągu max 3 dni roboczych.';
         }
 
-        // Tworzymy sesję płatności
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card', 'blik', 'p24'],
             line_items: lineItems,
             mode: 'payment',
+            // Sztywne adresy powrotne po transakcji
             success_url: 'https://wlepynafury.pl/?success=true',
             cancel_url: 'https://wlepynafury.pl/?canceled=true',
             shipping_address_collection: {
@@ -73,7 +67,7 @@ export default async function handler(req, res) {
             },
             custom_text: {
                 shipping_address: {
-                    message: shippingMessage, // Tu wstrzykujemy nasz dynamiczny tekst
+                    message: shippingMessage, 
                 },
             },
         });
