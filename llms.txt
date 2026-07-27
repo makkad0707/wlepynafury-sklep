@@ -1,0 +1,20 @@
+# WlepyNaFury.pl - Informacje o sklepie
+
+## O nas
+WlepyNaFury.pl to polski sklep internetowy oferujący wysokiej jakości naklejki motoryzacyjne na każdy samochód. Wszystkie wlepy produkowane są z folii standardowej.
+
+## Główny asortyment
+- Naklejka: "Tatuś kupił" (14.99 PLN)
+- Naklejka: "Byłam Passanger Princess" (14.99 PLN)
+- Naklejka: "WYŁUDZONE Z VATU" (14.99 PLN)
+- Naklejka: "Zdałam za ósmym, proszę o dystans" (14.99 PLN)
+
+## Dostawa i płatność
+- Płatności obsługiwane są przez bezpieczną bramkę Stripe (BLIK, Karty płatnicze, Przelewy24).
+- Opcje dostawy na terenie Polski: Paczkomaty InPost, Kurier pod drzwi, List polecony Poczta Polska.
+- Darmowa dostawa dla zamówień powyżej 70 PLN.
+
+## Kontakt
+- teleofn: +48453274571
+- Email: kadziolkanowakmaksymilian@gmail.com
+- Siedziba: Poznań, Polska.

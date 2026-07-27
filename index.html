@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WlepyNaFury.pl | Najlepsze naklejki motoryzacyjne</title>
+    <!-- SEO Tagi -->
+    <title>WlepyNaFury.pl | Naklejki na każdy samochód</title>
+    <meta name="description" content="Najlepsze naklejki motoryzacyjne na każdy samochód. Wlepy na fury, śmieszne teksty, folia premium z laminatem UV. Zamów online z szybką dostawą.">
     
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- Darmowy skrypt Mapy InPost v4 -->
-    <link rel="stylesheet" href="https://geowidget.easypack24.net/css/easypack.css"/>
-    <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
+    <!-- Open Graph (Wygląd linku np. na Messengerze) -->
+    <meta property="og:title" content="WlepyNaFury.pl | Naklejki na każdy samochód">
+    <meta property="og:description" content="Wlepy produkowane z folii winylowej premium. Odmień wygląd swojej fury.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wlepynafury.pl">
+
+    <!-- Schema.org (Dane strukturalne dla Google i AI) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "WlepyNaFury",
+      "url": "https://wlepynafury.pl",
+      "description": "Sklep internetowy oferujący naklejki i wlepy motoryzacyjne na samochody.",
+      "image": "https://wlepynafury.pl/img/144szer%20x%2079wys_tatuskupil.png",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Poznań",
+        "addressCountry": "PL"
+      }
+    }
+    </script>
 </head>
 <body>
 
@@ -75,6 +90,10 @@
                 <h4 style="margin-bottom: 15px;">Wybierz dostawę (Darmowa od 70 zł):</h4>
                 
                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="shipping" value="poczta" onchange="updateCartUI()"> 
+                    List polecony Poczta Polska (8.00 zł)
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
                     <input type="radio" name="shipping" value="inpost" onchange="updateCartUI()" checked> 
                     Paczkomat InPost (15.00 zł)
                 </label>
@@ -90,7 +109,13 @@
                     Kurier pod drzwi (20.00 zł)
                 </label>
             </div>
-
+        <!-- Informacja o nadawcy -->
+            <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: rgba(190, 242, 100, 0.05); border: 1px dashed rgba(190, 242, 100, 0.3); border-radius: 6px;">
+                <span style="color: var(--accent-color); font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px; text-transform: uppercase;">Ważna informacja przy odbiorze</span>
+                <span style="color: var(--text-muted); font-size: 12px; line-height: 1.4; display: block;">
+                    Nadawcą przesyłki jest zawsze <strong>Maksymilian Kądziołka-Nowak</strong>. 
+                </span>
+            </div>
             <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
             <p style="color: var(--text-muted); font-size: 12px; text-align: center; margin-bottom: 15px;">Wysyłka w ciągu max 3 dni roboczych.</p>
             

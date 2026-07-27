@@ -18,16 +18,24 @@ export default async function handler(req, res) {
             },
             quantity: item.quantity,
         }));
-
+        
         let shippingCost = 0;
         let shippingName = '';
 
         if (productsTotal < 70) {
-            shippingCost = (shippingType === 'inpost') ? 1500 : 2000;
-            shippingName = (shippingType === 'inpost') ? `Wysyłka - Paczkomat InPost (${paczkomatId})` : 'Wysyłka - Kurier';
+            if (shippingType === 'inpost') {
+                shippingCost = 1500;
+                shippingName = `Wysyłka - Paczkomat InPost (${paczkomatId})`;
+            } else if (shippingType === 'kurier') {
+                shippingCost = 2000;
+                shippingName = 'Wysyłka - Kurier';
+            } else if (shippingType === 'poczta') {
+                shippingCost = 800; // 8.00 zł w groszach
+                shippingName = 'Wysyłka - List polecony Poczta Polska';
+            }
         } else {
             shippingCost = 0;
-            shippingName = (shippingType === 'inpost') ? `Darmowa Wysyłka - Paczkomat (${paczkomatId})` : 'Darmowa Wysyłka - Kurier';
+            shippingName = `Darmowa Wysyłka - ${shippingType === 'inpost' ? `Paczkomat (${paczkomatId})` : (shippingType === 'poczta' ? 'List polecony' : 'Kurier')}`;
         }
         
         if (shippingCost > 0) {
@@ -44,6 +52,8 @@ export default async function handler(req, res) {
         let shippingMessage = '';
         if (shippingType === 'inpost') {
             shippingMessage = 'JEŚLI WYBRANA ZOSTAŁA WYSYŁKA PACZKOMATEM: Podany wyżej adres to jedynie formalność rozliczeniowa. Twoja paczka zostanie wysłana do wybranego Paczkomatu. Podanie numeru telefonu jest niezbędne do odbioru paczki! Jeśli zamawiasz kurierem do domu to podany wyżej adres jest adresem na który wysłana zostanie paczka';
+        } else if (shippingType === 'poczta') {
+            shippingMessage = 'Wysyłka Listem Poleconym: Przesyłka zostanie nadana na podany adres za pośrednictwem Poczty Polskiej. Upewnij się, że kod pocztowy jest poprawny.';
         } else {
             shippingMessage = 'Wysyłka Kurierem: Zamówienie zostanie wysłane na podany poniżej adres w ciągu max 3 dni roboczych.';
         }
