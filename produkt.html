@@ -3,8 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Tagi -->
     <title>WlepyNaFury.pl | Detale Produktu</title>
+    <meta name="description" content="Najlepsze naklejki motoryzacyjne na każdy samochód. Wlepy na fury, śmieszne teksty, folia premium z laminatem UV. Zamów online z szybką dostawą.">
+    
+    <!-- Open Graph (Wygląd linku np. na Messengerze) -->
+    <meta property="og:title" content="WlepyNaFury.pl | Naklejki na każdy samochód">
+    <meta property="og:description" content="Wlepy produkowane z folii winylowej premium. Odmień wygląd swojej fury.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wlepynafury.pl">
+
+    <!-- Schema.org (Dane strukturalne dla Google i AI) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Store",
+      "name": "WlepyNaFury",
+      "url": "https://wlepynafury.pl",
+      "description": "Sklep internetowy oferujący naklejki i wlepy motoryzacyjne na samochody.",
+      "image": "https://wlepynafury.pl/img/144szer%20x%2079wys_tatuskupil.png",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Poznań",
+        "addressCountry": "PL"
+      }
+    }
+    </script>
+
+    <!-- Google Fonts: Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Style CSS -->
     <link rel="stylesheet" href="style.css">
     
     <!-- Darmowy skrypt Mapy InPost v4 -->
@@ -77,6 +108,15 @@
                     Kurier pod drzwi (20.00 zł)
                 </label>
             </div>
+            
+            <!-- Informacja o nadawcy -->
+            <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: rgba(190, 242, 100, 0.05); border: 1px dashed rgba(190, 242, 100, 0.3); border-radius: 6px;">
+                <span style="color: var(--accent-color); font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px; text-transform: uppercase;">Ważna informacja przy odbiorze</span>
+                <span style="color: var(--text-muted); font-size: 12px; line-height: 1.4; display: block;">
+                    Nadawcą przesyłki jest zawsze <strong>Maksymilian Kądziołka-Nowak</strong>.
+                </span>
+            </div>
+            
             <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
             <p style="color: var(--text-muted); font-size: 12px; text-align: center; margin-bottom: 15px;">Wysyłka w ciągu max 3 dni roboczych.</p>
             
@@ -84,13 +124,6 @@
                 <a href="regulamin.html" style="color: var(--text-muted); font-size: 12px; text-decoration: underline; transition: color 0.3s;">
                     Klikając przycisk poniżej, akceptujesz Regulamin sklepu
                 </a>
-            </div>
-        <!-- Informacja o nadawcy -->
-            <div style="text-align: center; margin-bottom: 20px; padding: 12px; background: rgba(190, 242, 100, 0.05); border: 1px dashed rgba(190, 242, 100, 0.3); border-radius: 6px;">
-                <span style="color: var(--accent-color); font-size: 11px; font-weight: 700; display: block; margin-bottom: 4px; text-transform: uppercase;">Ważna informacja przy odbiorze</span>
-                <span style="color: var(--text-muted); font-size: 12px; line-height: 1.4; display: block;">
-                    Nadawcą przesyłki jest zawsze <strong>Maksymilian Kądziołka-Nowak</strong>.
-                </span>
             </div>
             <button class="checkout-btn" onclick="goToCheckout()">Kupuję z obowiązkiem zapłaty</button>
         </div>
