@@ -6,7 +6,12 @@ const products = [
     { id: 4, name: "WYŁUDZONE Z VATU", price: 14.99, image: "img/poprawionewyludzonezvatu.png", inStock: false, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
     { id: 5, name: "Z Lewego tylko na stacje - tło białe", price: 14.99, image: "img/POPRAWIONEbialetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: false, bgColor: "#000000", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
     { id: 6, name: "Z Lewego tylko na stacje - tło czarne", price: 14.99, image: "img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: false, bgColor: "#fdfdff", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
-    { id: 7, name: "WlepynaFury", price: 8.99, image: "img/naklejkawlepynafury.png", inStock: false, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" }
+    { id: 7, name: "WlepynaFury", price: 8.99, image: "img/naklejkawlepynafury.png", inStock: false, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" },
+    { id: 8, name: "Error 404", price: 10.99, image: "img/404error.png", inStock: false, bgColor: "#fdfdff", description: "Na przypale albo wcale", material: "Folia standardowa", size: "7,5 cm x 7,0 cm" },
+    { id: 9, name: "Majtki w dół - rózowy", price: 10.99, image: "img/majtkiwdol-rozowe.png", inStock: false, bgColor: "#fdfdff", description: "Dziewczyny wiecie co robić", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" },
+    { id: 10, name: "Majtki w dół - żółty", price: 10.99, image: "img/majtkiwdol-zolte.png", inStock: false, bgColor: "#fdfdff", description: "Dziewczyny wiecie co robić", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" },
+    { id: 11, name: "JTCNW - kolorowe", price: 11.99, image: "img/jtcnw-kolorowe.png", inStock: false, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "12,4 cm x 9,4" },
+    { id: 12, name: "JTCNW - białe", price: 11.99, image: "img/jtcnw-biale.png", inStock: false, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" }
  
 ];
 
