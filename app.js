@@ -2,17 +2,15 @@
 const products = [
     { id: 1, name: "Certified Gruz", price: 13.99, image: "img/CertifiedGruz.png", inStock: true, bgColor: "#fdfdff", description: "Na upalare", material: "Folia standardowa", size: "17 cm x 3 cm" },
     { id: 2, name: "Zdałam za ósmym, proszę o dystans", price: 14.99, image: "img/za osmym 194 x 79.png", inStock: true, bgColor: "#fdfdff", description: "Kiedy boisz się nie tylko o swoje życie ale też innych", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 3, name: "Tatuś kupił", price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: true, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" },
+    { id: 3, name: "Tatuś kupił", price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: true, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "13 cm x 7,5 cm" },
     { id: 4, name: "Byłam Passenger Princess", price: 14.99, image: "img/POPRAWIONABYLAMPASSENGER.png", inStock: true, bgColor: "#fdfdff", description: "Urodzona pasażerką, zmuszona do bycia kierowcą", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 5, name: "WYŁUDZONE Z VATU", price: 14.99, image: "img/poprawionewyludzonezvatu.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 6, name: "Z Lewego tylko na stacje - tło białe", price: 14.99, image: "img/stacjabialewlasciwe.png", inStock: true, bgColor: "#000000", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
-    { id: 7, name: "Z Lewego tylko na stacje - tło czarne", price: 14.99, image: "img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: true, bgColor: "#fdfdff", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9,9 cm x 12,4 cm" },
-    { id: 8, name: "WlepynaFury", price: 8.99, image: "img/naklejkawlepynafury.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "14,4 cm x 7,9 cm" },
-    { id: 9, name: "Error 404", price: 10.99, image: "img/404error.png", inStock: true, bgColor: "#fdfdff", description: "Na przypale albo wcale", material: "Folia standardowa", size: "7,5 cm x 7,0 cm" },
-    { id: 10, name: "Majtki w dół - rózowy", price: 10.99, image: "img/majtkiwdol-rozowe.png", inStock: false, bgColor: "#fdfdff", description: "Dziewczyny wiecie co robić", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" },
-    { id: 11, name: "Majtki w dół - żółty", price: 10.99, image: "img/majtkiwdol-zolte.png", inStock: false, bgColor: "#fdfdff", description: "Dziewczyny wiecie co robić", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" },
-    { id: 12, name: "JTCNW - kolorowe", price: 11.99, image: "img/jtcnw-kolorowe.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "12,4 cm x 9,4" },
-    { id: 13, name: "JTCNW - białe", price: 11.99, image: "img/jtcnw-biale.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "12,4 cm x 9,4 cm" }
+    { id: 5, name: "WYŁUDZONE Z VATU", price: 14.99, image: "img/poprawionewyludzonezvatu.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "13,5 cm x 6 cm" },
+    { id: 6, name: "Z Lewego tylko na stacje - tło białe", price: 14.99, image: "img/stacjabialewlasciwe.png", inStock: true, bgColor: "#000000", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
+    { id: 7, name: "Z Lewego tylko na stacje - tło czarne", price: 14.99, image: "img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: true, bgColor: "#fdfdff", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
+    { id: 8, name: "WlepynaFury", price: 8.99, image: "img/naklejkawlepynafury.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "11 cm x 7,5 cm" },
+    { id: 9, name: "Error 404", price: 10.99, image: "img/404error.png", inStock: true, bgColor: "#fdfdff", description: "Na przypale albo wcale", material: "Folia standardowa", size: "7,5 cm x 7,5 cm" },
+    { id: 10, name: "JTCNW - kolorowe", price: 11.99, image: "img/jtcnw-kolorowe.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8" },
+    { id: 11, name: "JTCNW - białe", price: 11.99, image: "img/jtcnw-biale.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8 cm" }
     
 ];
 
