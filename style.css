@@ -244,11 +244,12 @@ body::after {
 
 .product-image-col img {
     width: 100%;
-    height: auto;
+    height: 350px; /* Stała wysokość zapobiega skakaniu strony */
     background: rgba(0,0,0,0.6);
     border-radius: 8px;
     padding: 30px;
     border: 1px solid rgba(255,255,255,0.05);
+    transition: opacity 0.3s ease-in-out; /* Odpowiada za płynne przenikanie */
 }
 
 .product-info-col { display: flex; flex-direction: column; justify-content: center; }

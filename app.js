@@ -110,15 +110,37 @@ function renderSingleProduct() {
     let currentIndex = 0;
     
     // Funkcja podmieniająca główne zdjęcie
+    // Funkcja podmieniająca główne zdjęcie
     function changeImage(index) {
-        currentIndex = index;
-        imgEl.src = imagesList[currentIndex];
+        const imgEl = document.getElementById('detail-image');
         
-        // Podświetlanie odpowiedniej miniaturki
+        // 1. Zaczynamy płynne zanikanie
+        imgEl.style.opacity = 0;
+        
+        // 2. Czekamy ułamek sekundy i w tle podmieniamy zdjęcie
+        setTimeout(() => {
+            currentIndex = index;
+            const newSrc = imagesList[currentIndex];
+            imgEl.src = newSrc;
+            
+            // 3. Sprytne kadrowanie: jeśli to zdjęcie z telefonu (.jpg), wypełnij środek. Jeśli projekt naklejki (.png), daj marginesy.
+            if(newSrc.toLowerCase().includes('.jpg') || newSrc.toLowerCase().includes('.jpeg')) {
+                imgEl.style.objectFit = 'cover';
+                imgEl.style.padding = '0';
+            } else {
+                imgEl.style.objectFit = 'contain';
+                imgEl.style.padding = '30px';
+            }
+            
+            // 4. Płynne pojawienie się nowego obrazka
+            imgEl.style.opacity = 1;
+        }, 300); // 300 milisekund na animację
+        
+        // Podświetlanie odpowiedniej miniaturki pod spodem
         if(galleryContainer) {
             const thumbs = galleryContainer.querySelectorAll('.thumbnail-img');
             thumbs.forEach((th, idx) => {
-                if(idx === currentIndex) th.classList.add('active');
+                if(idx === index) th.classList.add('active');
                 else th.classList.remove('active');
             });
         }
