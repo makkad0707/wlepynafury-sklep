@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        const { items, shippingType, paczkomatId } = req.body;
+        const { items, shippingType, paczkomatId, sellerNote } = req.body;
 
         const productsTotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
@@ -73,7 +73,8 @@ export default async function handler(req, res) {
             },
             metadata: {
                 'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier',
-                'Paczkomat_ID': paczkomatId || 'Nie dotyczy'
+                'Paczkomat_ID': paczkomatId || 'Nie dotyczy',
+                'Uwagi_Od_Klienta': sellerNote || 'Brak'
             },
             custom_text: {
                 shipping_address: {

@@ -217,6 +217,9 @@ window.goToCheckout = async function() {
         alert("Proszę wybrać paczkomat na mapie!"); return;
     }
 
+    const noteInput = document.getElementById('seller-note');
+    const sellerNote = noteInput ? noteInput.value.trim() : '';
+    
     const checkoutBtn = document.querySelector('.checkout-btn');
     checkoutBtn.textContent = 'Trwa przekierowanie...';
     checkoutBtn.disabled = true;

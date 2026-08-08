@@ -331,3 +331,26 @@ body::after {
     padding: 2px 8px !important;
     z-index: 99999 !important;
 }
+/* --- BANER PROMOCYJNY --- */
+.promo-banner {
+    background-color: var(--accent-color);
+    color: #000;
+    font-weight: 900;
+    padding: 10px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    z-index: 101;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.promo-content {
+    display: inline-block;
+    animation: scroll-left 25s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}

@@ -44,7 +44,12 @@
     <script src="https://geowidget.easypack24.net/js/sdk-for-javascript.js"></script>
 </head>
 <body>
-
+    <!-- Baner Promocyjny -->
+    <div class="promo-banner">
+        <div class="promo-content">
+            🔥 PROMOCJA DO 15.08.2026! Kup 2 dowolne naklejki, a 3 dostaniesz GRATIS! Wpisz nazwę darmowej naklejki w polu "Informacja do sprzedawcy" w koszyku. 🔥
+        </div>
+    </div>
     <!-- Nawigacja -->
     <nav class="navbar">
         <a href="index.html" class="logo">WlepyNa<span>Fury</span></a>
@@ -116,6 +121,11 @@
                 <span style="color: var(--text-muted); font-size: 12px; line-height: 1.4; display: block;">
                     Nadawcą przesyłki jest zawsze <strong>Maksymilian Kądziołka-Nowak</strong>.
                 </span>
+            </div>
+            <!-- Informacja do sprzedawcy -->
+            <div style="margin-bottom: 20px;">
+                <label for="seller-note" style="display: block; font-size: 11px; color: var(--accent-color); margin-bottom: 8px; text-transform: uppercase; font-weight: 700;">Informacja do sprzedawcy (Promocja 2+1):</label>
+                <textarea id="seller-note" placeholder="Tu umieśc informację do sprzedawcy" style="width: 100%; background: var(--bg-color); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px; border-radius: 6px; resize: vertical; min-height: 70px; font-family: 'Inter', sans-serif; font-size: 13px;"></textarea>
             </div>
             
             <div class="cart-total">Suma: <span id="cart-total-price">0.00</span> zł</div>
