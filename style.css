@@ -359,3 +359,27 @@ body::after {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-50%); }
 }
+/* --- GALERIA PRODUKTU --- */
+.gallery-thumbnails {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.thumbnail-img {
+    width: 70px;
+    height: 50px;
+    object-fit: contain;
+    background: rgba(0,0,0,0.6);
+    border: 2px solid transparent;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.thumbnail-img:hover, .thumbnail-img.active {
+    border-color: var(--accent-color);
+    transform: scale(1.05);
+}

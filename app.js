@@ -1,16 +1,16 @@
 // --- 1. BAZA PRODUKTÓW ---
 const products = [
-    { id: 1, name: "Certified Gruz", category: "klasyka", price: 13.99, image: "img/CertifiedGruz.png", inStock: true, bgColor: "#fdfdff", description: "Na upalare", material: "Folia standardowa", size: "17 cm x 3 cm" },
-    { id: 2, name: "Zdałam za ósmym, proszę o dystans", category: "girls", price: 14.99, image: "img/za osmym 194 x 79.png", inStock: true, bgColor: "#fdfdff", description: "Kiedy boisz się nie tylko o swoje życie ale też innych", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 3, name: "Tatuś kupił", category: "girls", price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: true, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "13 cm x 7,5 cm" },
-    { id: 4, name: "Byłam Passenger Princess", category: "girls", price: 14.99, image: "img/POPRAWIONABYLAMPASSENGER.png", inStock: true, bgColor: "#fdfdff", description: "Urodzona pasażerką, zmuszona do bycia kierowcą", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
-    { id: 5, name: "WYŁUDZONE Z VATU", category: "klasyka", price: 14.99, image: "img/poprawionewyludzonezvatu.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "13,5 cm x 6 cm" },
-    { id: 6, name: "Z Lewego tylko na stacje - tło białe", category: "klasyka", price: 14.99, image: "img/stacjabialewlasciwe.png", inStock: true, bgColor: "#000000", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
-    { id: 7, name: "Z Lewego tylko na stacje - tło czarne", category: "klasyka", price: 14.99, image: "img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: true, bgColor: "#fdfdff", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
-    { id: 8, name: "WlepynaFury", category: "klasyka", price: 8.99, image: "img/naklejkawlepynafury.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "11 cm x 7,5 cm" },
-    { id: 9, name: "Error 404", category: "klasyka", price: 10.99, image: "img/404error.png", inStock: true, bgColor: "#fdfdff", description: "Na przypale albo wcale", material: "Folia standardowa", size: "7,5 cm x 7,5 cm" },
-    { id: 10, name: "JTCNW - kolorowe", category: "klasyka", price: 11.99, image: "img/jtcnw-kolorowe.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8" },
-    { id: 11, name: "JTCNW - białe", category: "klasyka", price: 11.99, image: "img/jtcnw-biale.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8 cm" }
+    { id: 1, name: "Certified Gruz", category: "klasyka", gallery: ["img/CertifiedGruz.png"], price: 13.99, image: "img/CertifiedGruz.png", inStock: true, bgColor: "#fdfdff", description: "Na upalare", material: "Folia standardowa", size: "17 cm x 3 cm" },
+    { id: 2, name: "Zdałam za ósmym, proszę o dystans", category: "girls", gallery: ["img/za osmym 194 x 79.png"], price: 14.99, image: "img/za osmym 194 x 79.png", inStock: true, bgColor: "#fdfdff", description: "Kiedy boisz się nie tylko o swoje życie ale też innych", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
+    { id: 3, name: "Tatuś kupił", category: "girls", gallery: ["img/144szer x 79wys_tatuskupil.png"], price: 14.99, image: "img/144szer x 79wys_tatuskupil.png", inStock: true, bgColor: "#fdfdff", description: "Chwała ojcu i jego pieniądzom", material: "Folia standardowa", size: "13 cm x 7,5 cm" },
+    { id: 4, name: "Byłam Passenger Princess", category: "girls", gallery: ["img/POPRAWIONABYLAMPASSENGER.png"], price: 14.99, image: "img/POPRAWIONABYLAMPASSENGER.png", inStock: true, bgColor: "#fdfdff", description: "Urodzona pasażerką, zmuszona do bycia kierowcą", material: "Folia standardowa", size: "19,4 cm x 7,9 cm" },
+    { id: 5, name: "WYŁUDZONE Z VATU", category: "klasyka", gallery: ["img/poprawionewyludzonezvatu.png", "img/pht_wyludzone.jpg"], price: 14.99, image: "img/poprawionewyludzonezvatu.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd na to miałeś (miejmy nadzieje, że nikt z urzędu nie zobaczy)", material: "Folia standardowa", size: "13,5 cm x 6 cm" },
+    { id: 6, name: "Z Lewego tylko na stacje - tło białe", category: "klasyka", gallery: ["img/stacjabialewlasciwe.png"], price: 14.99, image: "img/stacjabialewlasciwe.png", inStock: true, bgColor: "#000000", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
+    { id: 7, name: "Z Lewego tylko na stacje - tło czarne", category: "klasyka", gallery: ["img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png"], price: 14.99, image: "img/POPRAWIONEczarnetloZLEWEGOPASZJEŻDZAMTYLKONASTACJE.png", inStock: true, bgColor: "#fdfdff", description: "Wytłumacz wszystkim swoje zachowanie", material: "Folia standardowa", size: "9 cm x 11 cm" },
+    { id: 8, name: "WlepynaFury", category: "klasyka", gallery: ["img/naklejkawlepynafury.png"], price: 8.99, image: "img/naklejkawlepynafury.png", inStock: true, bgColor: "#fdfdff", description: "Pochwal się skąd to masz", material: "Folia standardowa", size: "11 cm x 7,5 cm" },
+    { id: 9, name: "Error 404", category: "klasyka", gallery: ["img/404error.png"], price: 10.99, image: "img/404error.png", inStock: true, bgColor: "#fdfdff", description: "Na przypale albo wcale", material: "Folia standardowa", size: "7,5 cm x 7,5 cm" },
+    { id: 10, name: "JTCNW - kolorowe", category: "klasyka", gallery: ["img/jtcnw-kolorowe.png"], price: 11.99, image: "img/jtcnw-kolorowe.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8" },
+    { id: 11, name: "JTCNW - białe", category: "klasyka", gallery: ["img/jtcnw-biale.png"], price: 11.99, image: "img/jtcnw-biale.png", inStock: true, bgColor: "#fdfdff", description: "Nie słuchaj fałszywych proroków", material: "Folia standardowa", size: "10,2 cm x 5,8 cm" }
     
 ];
 
@@ -84,6 +84,8 @@ function renderProducts() {
 }
 
 // --- 5. RENDEROWANIE POJEDYNCZEGO PRODUKTU ---
+let sliderInterval; // Pamięć naszego pokazu slajdów
+
 function renderSingleProduct() {
     const detailSection = document.getElementById('single-product-section');
     if (!detailSection) return; 
@@ -98,13 +100,65 @@ function renderSingleProduct() {
     }
 
     const imgEl = document.getElementById('detail-image');
-    imgEl.src = product.image;
     imgEl.style.backgroundColor = product.bgColor || 'rgba(0,0,0,0.6)'; 
 
+    // --- LOGIKA GALERII ---
+    const galleryContainer = document.getElementById('detail-gallery');
+    // Jeśli nie utworzysz tablicy 'gallery', skrypt bezpiecznie użyje podstawowego obrazka
+    const imagesList = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+    
+    let currentIndex = 0;
+    
+    // Funkcja podmieniająca główne zdjęcie
+    function changeImage(index) {
+        currentIndex = index;
+        imgEl.src = imagesList[currentIndex];
+        
+        // Podświetlanie odpowiedniej miniaturki
+        if(galleryContainer) {
+            const thumbs = galleryContainer.querySelectorAll('.thumbnail-img');
+            thumbs.forEach((th, idx) => {
+                if(idx === currentIndex) th.classList.add('active');
+                else th.classList.remove('active');
+            });
+        }
+    }
+
+    // Generowanie miniaturek pod spodem
+    if (galleryContainer) {
+        galleryContainer.innerHTML = ''; 
+        if (imagesList.length > 1) { // Tworzymy je tylko, gdy jest więcej niż 1 zdjęcie
+            imagesList.forEach((imgSrc, index) => {
+                const thumb = document.createElement('img');
+                thumb.src = imgSrc;
+                thumb.className = 'thumbnail-img';
+                thumb.onclick = () => {
+                    changeImage(index);
+                    // Zatrzymujemy pokaz slajdów, gdy klient sam zacznie klikać
+                    clearInterval(sliderInterval); 
+                };
+                galleryContainer.appendChild(thumb);
+            });
+        }
+    }
+
+    // Ładujemy pierwsze zdjęcie
+    changeImage(0);
+
+    // Automatyczne przewijanie (zmienia zdjęcie co 4 sekundy)
+    if (imagesList.length > 1) {
+        clearInterval(sliderInterval);
+        sliderInterval = setInterval(() => {
+            let nextIndex = (currentIndex + 1) % imagesList.length;
+            changeImage(nextIndex);
+        }, 4000); // 4000 = 4 sekundy
+    }
+
+    // --- RESZTA TEKSTÓW PRODUKTU ---
     document.getElementById('detail-title').textContent = product.name;
     document.getElementById('detail-price').textContent = product.price.toFixed(2) + ' zł';
     document.getElementById('detail-desc').textContent = product.description || 'Brak opisu.';
-    document.getElementById('detail-material').textContent = product.material || 'Folia winylowa premium + Laminat UV';
+    document.getElementById('detail-material').textContent = product.material || 'Folia standardowa';
     document.getElementById('detail-size').textContent = product.size || 'Wymiar uniwersalny';
 
     const btn = document.getElementById('detail-add-btn');
