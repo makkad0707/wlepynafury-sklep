@@ -329,7 +329,8 @@ window.goToCheckout = async function() {
             body: JSON.stringify({ 
                 items: cart,
                 shippingType: shippingMethod,       
-                paczkomatId: chosenPaczkomat || '' 
+                paczkomatId: chosenPaczkomat || '',
+                sellerNote: sellerNote
             }),
         });
 
