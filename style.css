@@ -242,7 +242,7 @@ body::after {
     padding: 40px;
 }
 
-.product-image-col img {
+#detail-image {
     width: 100%;
     height: 350px; /* Stała wysokość zapobiega skakaniu strony */
     background: rgba(0,0,0,0.6);
@@ -372,8 +372,6 @@ body::after {
 .thumbnail-img {
     width: 70px;
     height: 50px;
-    object-fit: contain;
-    background: rgba(0,0,0,0.6);
     border: 2px solid transparent;
     border-radius: 6px;
     cursor: pointer;

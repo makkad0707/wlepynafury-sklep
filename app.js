@@ -102,28 +102,22 @@ function renderSingleProduct() {
     const imgEl = document.getElementById('detail-image');
     imgEl.style.backgroundColor = product.bgColor || 'rgba(0,0,0,0.6)'; 
 
-    // --- LOGIKA GALERII ---
+   // --- LOGIKA GALERII ---
     const galleryContainer = document.getElementById('detail-gallery');
-    // Jeśli nie utworzysz tablicy 'gallery', skrypt bezpiecznie użyje podstawowego obrazka
     const imagesList = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
     
     let currentIndex = 0;
     
-    // Funkcja podmieniająca główne zdjęcie
-    // Funkcja podmieniająca główne zdjęcie
-    function changeImage(index) {
+    // Funkcja podmieniająca główne zdjęcie z flagą początkowego ładowania
+    function changeImage(index, isInitialLoad = false) {
         const imgEl = document.getElementById('detail-image');
         
-        // 1. Zaczynamy płynne zanikanie
-        imgEl.style.opacity = 0;
-        
-        // 2. Czekamy ułamek sekundy i w tle podmieniamy zdjęcie
-        setTimeout(() => {
+        const updateVisuals = () => {
             currentIndex = index;
             const newSrc = imagesList[currentIndex];
             imgEl.src = newSrc;
             
-            // 3. Sprytne kadrowanie: jeśli to zdjęcie z telefonu (.jpg), wypełnij środek. Jeśli projekt naklejki (.png), daj marginesy.
+            // Sprytne kadrowanie: JPG bez marginesów, PNG z marginesami
             if(newSrc.toLowerCase().includes('.jpg') || newSrc.toLowerCase().includes('.jpeg')) {
                 imgEl.style.objectFit = 'cover';
                 imgEl.style.padding = '0';
@@ -132,31 +126,52 @@ function renderSingleProduct() {
                 imgEl.style.padding = '30px';
             }
             
-            // 4. Płynne pojawienie się nowego obrazka
+            // Podświetlanie odpowiedniej miniaturki
+            if(galleryContainer) {
+                const thumbs = galleryContainer.querySelectorAll('.thumbnail-img');
+                thumbs.forEach((th, idx) => {
+                    if(idx === index) th.classList.add('active');
+                    else th.classList.remove('active');
+                });
+            }
+        };
+
+        if (isInitialLoad) {
+            // Natychmiastowe załadowanie pierwszego zdjęcia (Brak opóźnienia!)
             imgEl.style.opacity = 1;
-        }, 300); // 300 milisekund na animację
-        
-        // Podświetlanie odpowiedniej miniaturki pod spodem
-        if(galleryContainer) {
-            const thumbs = galleryContainer.querySelectorAll('.thumbnail-img');
-            thumbs.forEach((th, idx) => {
-                if(idx === index) th.classList.add('active');
-                else th.classList.remove('active');
-            });
+            updateVisuals();
+        } else {
+            // Płynna animacja przejścia przy kolejnych kliknięciach
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                updateVisuals();
+                imgEl.style.opacity = 1;
+            }, 300); 
         }
     }
 
-    // Generowanie miniaturek pod spodem
+    // Generowanie zoptymalizowanych miniaturek pod spodem
     if (galleryContainer) {
         galleryContainer.innerHTML = ''; 
-        if (imagesList.length > 1) { // Tworzymy je tylko, gdy jest więcej niż 1 zdjęcie
+        if (imagesList.length > 1) { 
             imagesList.forEach((imgSrc, index) => {
                 const thumb = document.createElement('img');
                 thumb.src = imgSrc;
                 thumb.className = 'thumbnail-img';
+                
+                // Dynamiczne tło dla miniaturki (używa koloru z bazy, by usunąć czerń)
+                thumb.style.backgroundColor = product.bgColor || 'rgba(0,0,0,0.6)';
+                
+                // Inteligentne kadrowanie samej miniaturki
+                if(imgSrc.toLowerCase().includes('.jpg') || imgSrc.toLowerCase().includes('.jpeg')) {
+                    thumb.style.objectFit = 'cover';
+                } else {
+                    thumb.style.objectFit = 'contain';
+                    thumb.style.padding = '5px';
+                }
+
                 thumb.onclick = () => {
                     changeImage(index);
-                    // Zatrzymujemy pokaz slajdów, gdy klient sam zacznie klikać
                     clearInterval(sliderInterval); 
                 };
                 galleryContainer.appendChild(thumb);
@@ -164,16 +179,16 @@ function renderSingleProduct() {
         }
     }
 
-    // Ładujemy pierwsze zdjęcie
-    changeImage(0);
+    // Ładujemy pierwsze zdjęcie Z FLAGĄ TRUE (natychmiastowo)
+    changeImage(0, true);
 
-    // Automatyczne przewijanie (zmienia zdjęcie co 4 sekundy)
+    // Automatyczne przewijanie co 4 sekundy
     if (imagesList.length > 1) {
         clearInterval(sliderInterval);
         sliderInterval = setInterval(() => {
             let nextIndex = (currentIndex + 1) % imagesList.length;
             changeImage(nextIndex);
-        }, 4000); // 4000 = 4 sekundy
+        }, 4000); 
     }
 
     // --- RESZTA TEKSTÓW PRODUKTU ---
