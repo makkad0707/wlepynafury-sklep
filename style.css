@@ -343,14 +343,19 @@ body::after {
     z-index: 101;
     font-size: 14px;
     text-transform: uppercase;
+    display: flex;
 }
 
 .promo-content {
-    display: inline-block;
+    display: flex;
+    flex-shrink: 0;
     animation: scroll-left 25s linear infinite;
+}
+.promo-content span {
+    padding-right: 50px; /* Ten margines to jedyny odstęp między powtórzeniami tekstu */
 }
 
 @keyframes scroll-left {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
 }
