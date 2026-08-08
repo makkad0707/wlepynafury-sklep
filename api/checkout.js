@@ -71,6 +71,14 @@ export default async function handler(req, res) {
             phone_number_collection: {
                 enabled: true,
             },
+            // NOWY BLOK: Wymusza zapisanie metadanych w szczegółach samej transakcji
+            payment_intent_data: {
+                metadata: {
+                    'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier',
+                    'Paczkomat_ID': paczkomatId || 'Nie dotyczy',
+                    'Uwagi_Od_Klienta': sellerNote || 'Brak'
+                }
+            },
             metadata: {
                 'Rodzaj_Dostawy': shippingType === 'inpost' ? 'Paczkomat InPost' : 'Kurier',
                 'Paczkomat_ID': paczkomatId || 'Nie dotyczy',
