@@ -181,10 +181,12 @@ body::after {
 .cart-sidebar {
     position: fixed; top: 0; right: -100%;
     width: 100%; max-width: 450px; height: 100vh;
+    height: 100dvh; /* Używamy 100dvh (dynamic viewport height), żeby telefon nie ucinał paska adresu */
     background: #0a0a0c; border-left: 1px solid var(--border-color);
     z-index: 1000; display: flex; flex-direction: column;
     transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: -10px 0 30px rgba(0,0,0,0.9);
+    overflow-y: auto; /* Pozwala przewijać cały panel, gdy brakuje miejsca */
 }
 .cart-sidebar.active { right: 0; }
 
@@ -195,14 +197,24 @@ body::after {
 .close-cart { background: none; border: none; color: var(--text-muted); font-size: 32px; cursor: pointer; transition: color 0.3s; }
 .close-cart:hover { color: var(--accent-color); }
 
-.cart-items { flex-grow: 1; overflow-y: auto; padding: 25px; }
+.cart-items { 
+    flex-grow: 1; 
+    padding: 25px; 
+    flex-shrink: 0; /* Ten parametr zabrania przeglądarce zgniatać produkty do zera */
+    min-height: 150px; /* Zawsze zostawiamy trochę miejsca na listę */
+}
 .cart-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed #27272a; }
 .cart-item-info h4 { font-size: 15px; margin-bottom: 5px; font-weight: 700; }
 .cart-item-price { color: var(--text-main); font-weight: 900; }
 .remove-item { background: none; border: none; color: #71717a; cursor: pointer; font-size: 12px; font-weight: 700; text-transform: uppercase; transition: color 0.3s; }
 .remove-item:hover { color: #ef4444; }
 
-.cart-footer { padding: 25px; border-top: 1px solid var(--border-color); background: rgba(0,0,0,0.3); }
+.cart-footer { 
+    padding: 25px; 
+    border-top: 1px solid var(--border-color); 
+    background: rgba(0,0,0,0.3); 
+    flex-shrink: 0; /* Blokujemy kurczenie się stopki i pola tekstowego */
+}
 .cart-total { font-size: 22px; font-weight: 900; margin-bottom: 20px; display: flex; justify-content: space-between; }
 
 .checkout-btn {
@@ -381,4 +393,10 @@ body::after {
 .thumbnail-img:hover, .thumbnail-img.active {
     border-color: var(--accent-color);
     transform: scale(1.05);
+}
+/* Odchudzanie marginesów koszyka na telefonach */
+@media (max-width: 600px) {
+    .cart-header, .cart-items, .cart-footer {
+        padding: 15px;
+    }
 }
